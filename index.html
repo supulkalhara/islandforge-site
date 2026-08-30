@@ -1,0 +1,356 @@
+<title>Island Forge</title>
+<meta name="description" content="Five command-line tools for solo operators: book production, print-on-demand design, product research, vertical video and publishing automation. $49 each.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;700&display=swap">
+<style>
+:root{
+  color-scheme:light dark;
+  --paper:#FBF9F5;--surface:#FFFFFF;--raise:#F4F0E7;
+  --text:#1B1917;--muted:#6A635A;--rule:#E3DDD2;
+  --ink:#1F3A5F;--accent:#B4381F;--on-ink:#FFFFFF;
+  --good:#2F6B46;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#14120F;--surface:#1C1916;--raise:#221E1A;
+  --text:#EDE8DF;--muted:#9A9186;--rule:#2E2A25;
+  --ink:#8FB6D8;--accent:#E27A5C;--on-ink:#14120F;
+  --good:#6FBF8E;
+}}
+:root[data-theme="dark"]{
+  --paper:#14120F;--surface:#1C1916;--raise:#221E1A;
+  --text:#EDE8DF;--muted:#9A9186;--rule:#2E2A25;
+  --ink:#8FB6D8;--accent:#E27A5C;--on-ink:#14120F;
+  --good:#6FBF8E;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--text);
+  font-family:"Source Serif 4",Georgia,serif;font-size:18px;line-height:1.65;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:64rem;margin:0 auto;padding:0 1.5rem}
+.narrow{max-width:38rem}
+h1,h2,h3,.dsp{font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-weight:700;
+  text-wrap:balance;letter-spacing:-.022em;line-height:1.12;margin:0}
+h1{font-size:clamp(2.4rem,6vw,4rem)}
+h2{font-size:clamp(1.6rem,3.2vw,2.2rem);margin-bottom:.8rem}
+h3{font-size:1.15rem;margin-bottom:.45rem}
+p{margin:0 0 1.05rem}
+code,.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace}
+a{color:var(--ink)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+
+/* masthead */
+.mast{position:sticky;top:0;z-index:30;border-bottom:1px solid var(--rule);
+  background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(8px)}
+.mast .wrap{display:flex;align-items:center;gap:1rem;padding:.85rem 1.5rem}
+.brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--text);
+  font-family:"Bricolage Grotesque",sans-serif;font-weight:800;letter-spacing:-.03em;font-size:1.05rem}
+.mast nav{margin-left:auto;display:flex;gap:1.2rem;align-items:center}
+.mast nav a:not(.btn){font-family:"JetBrains Mono",monospace;font-size:.78rem;
+  color:var(--muted);text-decoration:none}
+.mast nav a:not(.btn):hover{color:var(--ink)}
+.btn{display:inline-block;font-family:"Bricolage Grotesque",sans-serif;font-weight:700;
+  font-size:.9rem;padding:.55rem 1.05rem;border-radius:4px;text-decoration:none;
+  background:var(--ink);color:var(--on-ink);border:0;cursor:pointer;
+  transition:transform .12s ease,filter .12s ease}
+.btn:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--ink);
+  border:1px solid color-mix(in srgb,var(--ink) 38%,transparent)}
+.btn.sm{font-size:.82rem;padding:.42rem .8rem}
+
+/* hero */
+.hero{padding:5rem 0 3.5rem}
+.eyebrow{font-family:"JetBrains Mono",monospace;font-size:.74rem;text-transform:uppercase;
+  letter-spacing:.16em;color:var(--accent);margin:0 0 1.1rem}
+.hero .lede{font-size:1.3rem;color:var(--muted);max-width:36rem;margin:1.3rem 0 0;line-height:1.5}
+.hero-meta{display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;margin-top:2rem;
+  font-family:"JetBrains Mono",monospace;font-size:.78rem;color:var(--muted)}
+.hero-meta b{color:var(--text);font-weight:400}
+
+section{padding:3.5rem 0;border-top:1px solid var(--rule)}
+.sec-label{font-family:"JetBrains Mono",monospace;font-size:.73rem;text-transform:uppercase;
+  letter-spacing:.16em;color:var(--muted);margin:0 0 1.4rem}
+
+/* products */
+.prods{display:grid;gap:1.25rem;margin-top:1.75rem}
+.prod{background:var(--surface);border:1px solid var(--rule);border-radius:10px;
+  padding:1.5rem;display:grid;gap:1rem;grid-template-columns:1fr;
+  border-left:4px solid var(--pink)}
+@media(min-width:52rem){.prod{grid-template-columns:1.6fr 1fr;align-items:start}}
+.prod h3{color:var(--pink)}
+.prod .line{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;
+  font-size:1.28rem;letter-spacing:-.02em;margin:0 0 .6rem;line-height:1.2}
+.prod p{color:var(--muted);font-size:.98rem;margin:0}
+.prod .tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.9rem}
+.tag{font-family:"JetBrains Mono",monospace;font-size:.7rem;padding:.16rem .5rem;
+  border-radius:3px;background:var(--raise);color:var(--muted)}
+.buy{display:flex;flex-direction:column;gap:.55rem;align-items:flex-start}
+@media(min-width:52rem){.buy{align-items:flex-end;text-align:right}}
+.price{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:2rem;
+  letter-spacing:-.03em;line-height:1}
+.price small{font-family:"JetBrains Mono",monospace;font-size:.7rem;font-weight:400;
+  color:var(--muted);display:block;margin-top:.25rem;letter-spacing:0}
+.prod .btn{background:var(--pink);color:var(--on-pink)}
+.alt{font-family:"JetBrains Mono",monospace;font-size:.74rem;color:var(--muted)}
+.alt a{color:var(--muted)}
+
+.bundle{background:var(--raise);border:1px dashed var(--rule);border-radius:10px;
+  padding:1.4rem 1.5rem;margin-top:1.25rem;display:flex;flex-wrap:wrap;
+  gap:1rem;align-items:center;justify-content:space-between}
+.bundle p{margin:0;color:var(--muted);font-size:.97rem}
+.bundle b{color:var(--text)}
+
+/* services */
+.svc{display:grid;gap:1.75rem;grid-template-columns:repeat(auto-fit,minmax(17rem,1fr));margin-top:1.5rem}
+.svc div{border-top:2px solid var(--ink);padding-top:.8rem}
+.svc p{color:var(--muted);font-size:.95rem;margin:0}
+
+/* pay */
+.pay{display:grid;gap:1.25rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));margin-top:1.5rem}
+.pay div{background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:1.2rem}
+.pay h3{font-size:1rem}
+.pay p{font-size:.92rem;color:var(--muted);margin:0}
+
+.callout{border-left:3px solid var(--accent);padding:.15rem 0 .15rem 1.2rem;color:var(--muted)}
+.stack{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+
+footer{border-top:1px solid var(--rule);padding:2.5rem 0 4rem;color:var(--muted);font-size:.87rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-between}
+footer a{color:var(--muted)}
+footer nav{display:flex;gap:1.2rem;flex-wrap:wrap}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* Per-product accent. Defined as classes, not inline styles, so each one can be
+   redefined per theme — a fixed hex is unreadable on the opposite ground. */
+.p-bookforge{--pink:#1F3A5F;--on-pink:#FFFFFF}
+.p-designforge{--pink:#B4381F;--on-pink:#FFFFFF}
+.p-painscout{--pink:#8A6A1F;--on-pink:#FFFFFF}
+.p-reelforge{--pink:#14514B;--on-pink:#FFFFFF}
+.p-shipkit{--pink:#2C5545;--on-pink:#FFFFFF}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) {}
+  .p-bookforge{--pink:#8FB6D8;--on-pink:#14120F}
+  .p-designforge{--pink:#E27A5C;--on-pink:#14120F}
+  .p-painscout{--pink:#D2AC55;--on-pink:#14120F}
+  .p-reelforge{--pink:#63B8AC;--on-pink:#14120F}
+  .p-shipkit{--pink:#79B79A;--on-pink:#14120F}
+}
+:root[data-theme="dark"] {}
+:root[data-theme="dark"] .p-bookforge{--pink:#8FB6D8;--on-pink:#14120F}
+:root[data-theme="dark"] .p-designforge{--pink:#E27A5C;--on-pink:#14120F}
+:root[data-theme="dark"] .p-painscout{--pink:#D2AC55;--on-pink:#14120F}
+:root[data-theme="dark"] .p-reelforge{--pink:#63B8AC;--on-pink:#14120F}
+:root[data-theme="dark"] .p-shipkit{--pink:#79B79A;--on-pink:#14120F}
+</style>
+<script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
+<header class="mast">
+  <div class="wrap">
+    <a class="brand" href="./"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
+      <rect x="1" y="1" width="18" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M5 13.5 10 5l5 8.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    </svg>Island Forge</a>
+    <nav>
+      <a href="./#products">Products</a>
+      <a href="./#services">Services</a>
+      <a href="./#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <div class="wrap hero">
+    <p class="eyebrow">Independent software · Sri Lanka</p>
+    <h1>Small, sharp tools for people who ship alone.</h1>
+    <p class="lede">Five command-line tools that do one job properly and get out of the
+      way. They run on models on your own machine, cost nothing per use, and degrade
+      instead of failing when something is missing.</p>
+    <div class="hero-meta">
+      <span><b>$49</b> per tool</span>
+      <span><b>One payment</b>, no subscription</span>
+      <span><b>Full source</b> included</span>
+      <span><b>14-day</b> refund</span>
+    </div>
+  </div>
+
+  <section id="products">
+    <div class="wrap">
+      <p class="sec-label">The tools</p>
+      <div class="narrow">
+        <h2>Built for one person doing everything</h2>
+        <p style="color:var(--muted)">Each of these came out of running an automated
+          publishing operation single-handed. They are the parts that turned out to be
+          worth keeping — the ones that stopped things failing quietly at 3am.</p>
+      </div>
+      <div class="prods">
+      <article class="prod p-bookforge">
+        <div>
+          <h3>BookForge</h3>
+          <p class="line">A brief goes in. A finished book comes out.</p>
+          <p>Designed PDF interior, valid EPUB3, cover art, full paperback wrap and the listing copy — with a quality gate that refuses to ship a placeholder cover or a truncated manuscript.</p>
+          <div class="tags"><span class="tag">PDF + EPUB3</span><span class="tag">Cover art</span><span class="tag">Quality gate</span><span class="tag">5 book formats</span></div>
+        </div>
+        <div class="buy">
+          <span class="price">$49<small>one payment · one person</small></span>
+          <a class="btn lemonsqueezy-button" href="https://kalharasupul.gumroad.com/?ref=ls">Buy BookForge</a>
+          <span class="alt"><a href="https://kalharasupul.gumroad.com">Gumroad</a> ·
+            <a href="https://supulkalhara.github.io/bookforge/">Details</a></span>
+        </div>
+      </article>
+      <article class="prod p-designforge">
+        <div>
+          <h3>DesignForge</h3>
+          <p class="line">It remembers every design it already made.</p>
+          <p>A print-on-demand factory: trend research, coherent collections, embedding-based duplicate filtering, print-ready transparent PNGs and listing copy for every file.</p>
+          <div class="tags"><span class="tag">5000×5500 PNG</span><span class="tag">Dedup memory</span><span class="tag">16 styles</span><span class="tag">Wallpapers</span></div>
+        </div>
+        <div class="buy">
+          <span class="price">$49<small>one payment · one person</small></span>
+          <a class="btn lemonsqueezy-button" href="https://kalharasupul.gumroad.com/?ref=ls">Buy DesignForge</a>
+          <span class="alt"><a href="https://kalharasupul.gumroad.com">Gumroad</a> ·
+            <a href="https://supulkalhara.github.io/designforge/">Details</a></span>
+        </div>
+      </article>
+      <article class="prod p-painscout">
+        <div>
+          <h3>PainScout</h3>
+          <p class="line">Build for the problem that keeps coming back.</p>
+          <p>Reads what people publicly complain about, scores each recurring friction against your audience, and tracks how those scores move week over week.</p>
+          <div class="tags"><span class="tag">Zero dependencies</span><span class="tag">No API keys</span><span class="tag">Trend tracking</span><span class="tag">JSON export</span></div>
+        </div>
+        <div class="buy">
+          <span class="price">$49<small>one payment · one person</small></span>
+          <a class="btn lemonsqueezy-button" href="https://kalharasupul.gumroad.com/?ref=ls">Buy PainScout</a>
+          <span class="alt"><a href="https://kalharasupul.gumroad.com">Gumroad</a> ·
+            <a href="https://supulkalhara.github.io/painscout/">Details</a></span>
+        </div>
+      </article>
+      <article class="prod p-reelforge">
+        <div>
+          <h3>ReelForge</h3>
+          <p class="line">A failure at step four shouldn't cost you steps one to three.</p>
+          <p>Captioned 1080×1920 promo videos with narration and sound design — plus a config-driven pipeline orchestrator that survives every way a long job breaks.</p>
+          <div class="tags"><span class="tag">ffmpeg only</span><span class="tag">Karaoke captions</span><span class="tag">Orchestrator</span><span class="tag">Gated stages</span></div>
+        </div>
+        <div class="buy">
+          <span class="price">$49<small>one payment · one person</small></span>
+          <a class="btn lemonsqueezy-button" href="https://kalharasupul.gumroad.com/?ref=ls">Buy ReelForge</a>
+          <span class="alt"><a href="https://kalharasupul.gumroad.com">Gumroad</a> ·
+            <a href="https://supulkalhara.github.io/reelforge/">Details</a></span>
+        </div>
+      </article>
+      <article class="prod p-shipkit">
+        <div>
+          <h3>ShipKit</h3>
+          <p class="line">Run it twice. It won't make two listings.</p>
+          <p>Publish a folder of files to Gumroad from the command line and pull real sales figures back. Official API, no browser automation, no dependencies.</p>
+          <div class="tags"><span class="tag">Idempotent</span><span class="tag">Official API</span><span class="tag">Sales history</span><span class="tag">150 lines</span></div>
+        </div>
+        <div class="buy">
+          <span class="price">$49<small>one payment · one person</small></span>
+          <a class="btn lemonsqueezy-button" href="https://kalharasupul.gumroad.com/?ref=ls">Buy ShipKit</a>
+          <span class="alt"><a href="https://kalharasupul.gumroad.com">Gumroad</a> ·
+            <a href="https://supulkalhara.github.io/shipkit/">Details</a></span>
+        </div>
+      </article>
+      </div>
+      <div class="bundle">
+        <p><b>All five, $149.</b> Everything above, one payment — the price of three.</p>
+        <a class="btn lemonsqueezy-button" href="https://kalharasupul.gumroad.com/?ref=ls">Buy the bundle</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="wrap">
+      <p class="sec-label">Consulting</p>
+      <div class="narrow">
+        <h2>Independent engagements, a few at a time</h2>
+        <p style="color:var(--muted)">Short, scoped pieces of work on getting AI systems
+          into production and keeping them there. Availability is limited and outside
+          normal business hours — if that does not suit your timeline, say so early and
+          I will tell you honestly rather than take the work.</p>
+      </div>
+      <div class="svc">
+        <div><h3>LLM gateway and routing</h3><p>Putting a single gateway in front of many model providers — LiteLLM or similar — so applications stop hard-coding one vendor. Routing, fallbacks, cost attribution and per-team limits.</p></div>
+        <div><h3>Model serving on Kubernetes</h3><p>Getting models served properly: KServe and Kubeflow setups, autoscaling that reacts to real traffic, GPU scheduling, and moving off notebooks-in-production.</p></div>
+        <div><h3>Self-hosting open models</h3><p>Running open-weight models on your own hardware or cloud, sized honestly — including the cases where a hosted API is genuinely the cheaper answer.</p></div>
+        <div><h3>Pipeline automation</h3><p>Turning manual multi-step work into a scheduled pipeline that fails visibly instead of silently. Orchestration, quality gates, and the alerting around them.</p></div>
+      </div>
+      <p class="callout" style="margin-top:2rem">Fixed scope and a fixed price, agreed
+        before anything starts. No retainers, and no engagements that compete with work
+        I already do elsewhere.</p>
+      <p style="margin-top:1.5rem"><a class="btn ghost" href="mailto:supul9229kalhara@gmail.com?subject=Consulting%20enquiry">Describe your problem</a></p>
+    </div>
+  </section>
+
+  <section id="pay">
+    <div class="wrap">
+      <p class="sec-label">Paying</p>
+      <h2>However suits you</h2>
+      <div class="pay">
+        <div>
+          <h3>Card</h3>
+          <p>Checkout opens on this page. Your licence key and download arrive by email
+            straight away.</p>
+        </div>
+        <div>
+          <h3>PayPal</h3>
+          <p>Prefer PayPal? <a href="mailto:supul9229kalhara@gmail.com?subject=PayPal%20purchase">Email me</a>
+            and I will send a payment request and the files by return.</p>
+        </div>
+        <div>
+          <h3>Bank transfer</h3>
+          <p>For team licences and consulting.
+            <a href="mailto:supul9229kalhara@gmail.com?subject=Invoice%20request">Request an invoice</a>
+            with your details and I will issue one.</p>
+        </div>
+        <div>
+          <h3>Team licences</h3>
+          <p>Five seats for $149 per tool.
+            <a href="mailto:supul9229kalhara@gmail.com?subject=Team%20licence">Get in touch</a> — larger
+            teams and site licences by arrangement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap narrow">
+      <p class="sec-label">Who makes these</p>
+      <h2>One engineer, working in the open</h2>
+      <p>Island Forge is a one-person operation. I build and maintain data and machine
+        learning systems — model serving, orchestration, CI/CD, the unglamorous parts
+        that decide whether a model is useful or merely impressive.</p>
+      <p>These tools exist because I needed them. The quality gate in BookForge is there
+        because a run of books shipped with placeholder covers. The dedup memory in
+        DesignForge is there because a catalogue filled up with near-identical work.
+        Every awkward-looking guard rail marks something that already went wrong once.</p>
+      <p style="color:var(--muted);font-size:.95rem">Day to day I work with Python, Go
+        and C#; Kubernetes, Helm, Terraform, Docker; KServe, Kubeflow, Airflow, Dagster,
+        Tekton and ArgoCD; PyTorch and the usual model-serving stack; Postgres and
+        MongoDB; React on the front end.</p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap narrow">
+      <p class="sec-label">Contact</p>
+      <h2>Ask before you buy</h2>
+      <p>If you are not sure a tool does what you need, ask. I would rather answer a
+        question than process a refund.</p>
+      <p><a class="btn" href="mailto:supul9229kalhara@gmail.com">supul9229kalhara@gmail.com</a></p>
+      <p style="color:var(--muted);font-size:.93rem;margin-top:1.5rem">Support is by
+        email, usually within two working days. Include the output of the tool's
+        <code>doctor</code> command — it answers most setup questions on its own.</p>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <span>Island Forge — small, sharp tools for people who ship alone.</span>
+    <nav>
+      <a href="./terms.html">Terms</a>
+      <a href="./refunds.html">Refunds</a>
+      <a href="./privacy.html">Privacy</a>
+      <a href="mailto:supul9229kalhara@gmail.com">supul9229kalhara@gmail.com</a>
+    </nav>
+  </div>
+</footer>
