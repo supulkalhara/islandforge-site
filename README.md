@@ -70,6 +70,8 @@ Processors take a custom domain more seriously than a `github.io` subdomain.
 ## Before you go live
 
 - [ ] Real checkout URLs in place of the Gumroad store root
+- [ ] In Lemon Squeezy, enable **PayPal** as a checkout payment method (Settings →
+      Payments) — the site tells buyers it is available
 - [ ] Read `terms.html`, `sales-policy.html` and `privacy.html` — these are your
       commitments, not boilerplate
 - [ ] Decide whether the consulting section stays (check your outside-work clause)
