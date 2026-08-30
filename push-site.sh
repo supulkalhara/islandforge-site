@@ -5,7 +5,7 @@
 #   bash push-site.sh
 #
 # Creates a PUBLIC repo (a storefront nobody can read sells nothing), pushes it,
-# turns on Pages, and waits for the site to answer before telling you it worked.
+# turns on Pages, and waits for the site to answer before claiming success.
 # Safe to re-run.
 set -uo pipefail
 
@@ -19,8 +19,8 @@ say "${BOLD}Publishing the Island Forge storefront${OFF}"
 say ""
 
 [ -f index.html ] || { say "${RED}Run this from inside the islandforge-site folder.${OFF}"; exit 1; }
-
 command -v gh >/dev/null 2>&1 || { say "${RED}GitHub CLI not found: brew install gh${OFF}"; exit 1; }
+
 if ! gh auth status >/dev/null 2>&1; then
   say "${YELLOW}Not signed in. Run 'gh auth login' first, then re-run this.${OFF}"
   say "${DIM}Copy the one-time code the moment it appears — it expires quickly.${OFF}"
@@ -29,16 +29,38 @@ fi
 
 ACTUAL="$(gh api user --jq .login 2>/dev/null)"
 [ -n "$ACTUAL" ] || { say "${RED}Could not read your GitHub account.${OFF}"; exit 1; }
-[ "$ACTUAL" != "$OWNER" ] && { say "${YELLOW}Signed in as '$ACTUAL', using that instead of '$OWNER'.${OFF}"; OWNER="$ACTUAL"; }
+if [ "$ACTUAL" != "$OWNER" ]; then
+  say "${YELLOW}Signed in as '$ACTUAL' — using that.${OFF}"; OWNER="$ACTUAL"
+fi
 say "${GREEN}Signed in as $OWNER${OFF}"
 
-# --- git ---
+# --- clear stale git locks -------------------------------------------------
+# These get left behind when git runs somewhere that cannot delete files.
+# Nothing else is running against this repo, so removing them is safe.
+if [ -d .git ]; then
+  STALE="$(find .git -name '*.lock' 2>/dev/null | wc -l | tr -d ' ')"
+  if [ "$STALE" != "0" ]; then
+    if pgrep -f "git .*$(basename "$PWD")" >/dev/null 2>&1; then
+      say "${RED}A git process looks active. Close it and re-run.${OFF}"; exit 1
+    fi
+    find .git -name '*.lock' -delete 2>/dev/null
+    say "cleared $STALE stale git lock(s)"
+  fi
+fi
+
+# --- git -------------------------------------------------------------------
 [ -d .git ] || git init -q
 git add -A
-git diff --cached --quiet || git commit -q -m "Storefront update"
-git branch -M main
+git diff --cached --quiet 2>/dev/null || git commit -q -m "Storefront update"
 
-# --- repo ---
+# main, whatever it was called before
+CURRENT="$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo master)"
+if [ "$CURRENT" != "main" ]; then
+  git branch -M main || { say "${RED}Could not rename '$CURRENT' to main.${OFF}"; exit 1; }
+  say "branch $CURRENT -> main"
+fi
+
+# --- repo ------------------------------------------------------------------
 if gh repo view "$OWNER/$REPO" >/dev/null 2>&1; then
   say "repo exists"
 else
@@ -49,20 +71,26 @@ fi
 
 git remote remove origin 2>/dev/null
 git remote add origin "https://github.com/$OWNER/$REPO.git"
-git push -u origin main --force-with-lease >/dev/null 2>&1 && say "pushed" \
-  || { say "${RED}push failed${OFF}"; exit 1; }
 
-# --- pages ---
+if git push -u origin main --force 2>/tmp/ifpush.err; then
+  say "pushed"
+else
+  say "${RED}push failed:${OFF}"; sed 's/^/    /' /tmp/ifpush.err | head -5; exit 1
+fi
+
+# --- pages -----------------------------------------------------------------
 say "enabling GitHub Pages…"
 gh api -X POST "repos/$OWNER/$REPO/pages" -f "source[branch]=main" -f "source[path]=/" \
-  >/dev/null 2>&1 && say "Pages enabled" || say "${DIM}Pages already enabled (or set it under Settings → Pages)${OFF}"
+  >/dev/null 2>&1 && say "Pages enabled" \
+  || say "${DIM}Pages already enabled, or set it under Settings → Pages${OFF}"
 
 URL="https://$OWNER.github.io/$REPO/"
 say ""
-say "Waiting for the site to go live (first build takes a minute or two)…"
+say "Waiting for the site to go live (a first build takes a minute or two)…"
 for i in $(seq 1 40); do
   CODE="$(curl -s -o /dev/null -w '%{http_code}' --max-time 10 "$URL")"
   if [ "$CODE" = "200" ]; then
+    say ""
     say "${GREEN}${BOLD}Live:${OFF} $URL"
     for page in terms sales-policy privacy; do
       c="$(curl -s -o /dev/null -w '%{http_code}' --max-time 10 "$URL$page.html")"
@@ -70,11 +98,10 @@ for i in $(seq 1 40); do
     done
     exit 0
   fi
-  printf "\r  attempt %2d/40 — HTTP %s " "$i" "$CODE"
+  printf "\r  attempt %2d/40 — HTTP %s  " "$i" "$CODE"
   sleep 15
 done
 
 say ""
-say "${YELLOW}Not answering yet. This is normal for a first deploy.${OFF}"
-say "Check ${BOLD}Settings → Pages${OFF} at https://github.com/$OWNER/$REPO/settings/pages"
-say "then open $URL in a minute."
+say "${YELLOW}Not answering yet — normal on a first deploy.${OFF}"
+say "Check https://github.com/$OWNER/$REPO/settings/pages then open $URL"
