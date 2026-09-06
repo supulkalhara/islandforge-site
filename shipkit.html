@@ -1,5 +1,5 @@
-<title>Sales Policy — Island Forge</title>
-<meta name="description" content="All sales are final, with one exception.">
+<title>ShipKit — Island Forge</title>
+<meta name="description" content="Idempotent Gumroad publishing over the official API, plus real sales figures pulled into a local history.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;700&display=swap">
@@ -262,12 +262,7 @@ footer nav{display:flex;gap:1.3rem;flex-wrap:wrap}
 .hero-meta{display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;margin-top:2.2rem;
   font-family:"JetBrains Mono",monospace;font-size:.78rem;color:var(--muted)}
 .hero-meta b{color:var(--text);font-weight:400}
-.doc{max-width:40rem;padding-top:clamp(3rem,7vw,5rem)}
-.doc h1{font-size:clamp(2.2rem,5vw,3.2rem)}
-.doc h2{margin-top:2.75rem;font-size:1.45rem}
-.doc ul{padding-left:1.2rem;color:var(--muted)}
-.doc li{margin-bottom:.55rem}
-.doc .updated{font-family:"JetBrains Mono",monospace;font-size:.75rem;color:var(--faint)}</style>
+</style>
 <header class="mast">
   <div class="wrap">
     <a class="brand" href="./index.html">
@@ -286,52 +281,93 @@ footer nav{display:flex;gap:1.3rem;flex-wrap:wrap}
   </div>
 </header>
 <main>
-  <div class="wrap doc">
-    <p class="eyebrow">Legal</p>
-    <h1>Sales policy</h1>
-    <p class="updated">Last updated 30 August 2026</p>
-
-    <h2>All sales are final</h2>
-    <p>These are digital products. The moment you buy, you have the full source code and
-      it cannot be returned. For that reason every sale is final, and there is no
-      change-of-mind refund period.</p>
-    <p>By completing a purchase you agree to immediate delivery and, where your local law
-      allows you to waive it, you give up any statutory cooling-off period for digital
-      content.</p>
-
-    <h2>So ask first</h2>
-    <p>This policy puts the burden on me to describe things accurately and on you to check
-      before buying. Both are easy:</p>
-    <ul>
-      <li>Every product page lists exactly what the tool produces and what it needs to run.</li>
-      <li>Every tool ships a <code>doctor</code> command that reports what your machine can
-        actually do — the answer to most "will this work for me" questions.</li>
-      <li>Email <a href="mailto:supul9229kalhara@gmail.com">supul9229kalhara@gmail.com</a> before you buy and I will tell you
-        honestly whether a tool fits your case, including when the answer is no.</li>
-    </ul>
-
-    <h2>The one exception</h2>
-    <p>If a product does not do what its page says it does, that is a defect, not a change
-      of mind. Tell me and I will fix it, or refund you if I cannot. This applies however
-      long ago you bought it.</p>
-    <p>Setup problems are usually not defects — a missing dependency or a model server that
-      is not running is fixable, and I will help you fix it. Send the output of the tool's
-      <code>doctor</code> command and I will normally have you working within a day.</p>
-
-    <h2>What this policy cannot override</h2>
-    <p>Two things sit above it, and I would rather say so than pretend otherwise:</p>
-    <ul>
-      <li><b>Your statutory rights.</b> Some countries grant consumers rights that cannot
-        be waived by a policy like this one. Where that applies to you, those rights win.</li>
-      <li><b>The payment platform's own rules.</b> Lemon Squeezy and Gumroad act as
-        merchant of record on their sales and operate their own buyer-protection policies.
-        They can issue a refund independently of anything stated here.</li>
-    </ul>
-
-    <h2>Chargebacks</h2>
-    <p>If something is wrong, email me. A chargeback costs us both more than a conversation
-      does, and I have never refused to sort out a genuine problem.</p>
+  <div class="wrap phero p-shipkit">
+    <p class="kicker">$29 · one payment</p>
+    <h1>Run it twice. It won't make two listings.</h1>
+    <p class="lede">Publish a folder of files to Gumroad from the command line and pull real sales figures back. Official API, no browser automation, not a single dependency.</p>
+    <div class="tags" style="margin-top:1.5rem"><span class="tag">Idempotent</span><span class="tag">Official API</span><span class="tag">Sales history</span><span class="tag">Zero dependencies</span></div>
+    <div class="hero-cta">
+      <a class="btn big" href="#buy">Get ShipKit — $29</a>
+      <a class="btn ghost big" href="#how">How it works</a>
+    </div>
   </div>
+
+  <section style="padding-top:0">
+    <div class="wrap p-shipkit"><div class="term" id="t-shipkit" data-frames='[{"t": "$ ", "cls": "p", "d": 0}, {"t": "shipkit publish my-product<br>", "cls": null, "d": 26}, {"t": "The Off Switch<br>", "cls": "hi", "d": 12}, {"t": "  price      19.00 USD<br>", "cls": "c", "d": 8}, {"t": "  files      guide.pdf, worksheet.pdf<br>", "cls": "c", "d": 8}, {"t": "  visibility published<br>", "cls": "c", "d": 8}, {"t": "  updating existing product 8Kd2p<br>", "cls": null, "d": 10}, {"t": "  = guide.pdf (already uploaded)<br>", "cls": "c", "d": 10}, {"t": "  + worksheet.pdf<br>", "cls": "ok", "d": 10}, {"t": "<br>DONE", "cls": "ok", "d": 10}, {"t": "  https://you.gumroad.com/l/offswitch<br>", "cls": null, "d": 12}, {"t": "      record kept in .shipkit.json \u2014 re-running is safe<br><br>", "cls": "c", "d": 10}, {"t": "$ ", "cls": "p", "d": 300}, {"t": "shipkit sales --month 2026-07<br>", "cls": null, "d": 26}, {"t": "GUMROAD 2026-07   413.00 USD from 22 sales<br>", "cls": "hi", "d": 12}, {"t": "    14x  The Off Switch<br>", "cls": null, "d": 8}, {"t": "     6x  The Short List<br>", "cls": null, "d": 8}, {"t": "     2x  Large Print Sudoku, Volume 1<br>", "cls": null, "d": 8}]'>
+  <div class="term-bar"><i></i><i></i><i></i><span>shipkit publish my-product</span>
+    <span class="replay">recorded run</span></div>
+  <pre><span class="p">$ </span>shipkit publish my-product
+<span class="hi">The Off Switch
+</span><span class="c">  price      19.00 USD
+</span><span class="c">  files      guide.pdf, worksheet.pdf
+</span><span class="c">  visibility published
+</span>  updating existing product 8Kd2p
+<span class="c">  = guide.pdf (already uploaded)
+</span><span class="ok">  + worksheet.pdf
+</span><span class="ok">
+DONE</span>  https://you.gumroad.com/l/offswitch
+<span class="c">      record kept in .shipkit.json — re-running is safe
+
+</span><span class="p">$ </span>shipkit sales --month 2026-07
+<span class="hi">GUMROAD 2026-07   413.00 USD from 22 sales
+</span>    14x  The Off Switch
+     6x  The Short List
+     2x  Large Print Sudoku, Volume 1
+</pre>
+</div>
+<div class="term-actions"><button class="btn ghost sm" data-replay="t-shipkit">Replay</button><span class="term-note">The second run updated the listing and uploaded only the new file.</span></div></div>
+  </section>
+
+
+
+  <section id="how"><div class="wrap">
+    <p class="sec-label">How it works</p>
+    <h2 class="narrow" style="margin-bottom:2rem">What already happened is recorded beside the product, so a re-run is a no-op.</h2>
+    <div class="diagram rv"><svg viewBox="0 0 880 108" role="img" aria-label="Pipeline diagram"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="currentColor" opacity=".45"/></marker></defs><g fill="none" stroke="currentColor" opacity=".28" stroke-width="1.5"><line x1="206.5" y1="46" x2="221.5" y2="46" marker-end="url(#ar)"/><line x1="432.0" y1="46" x2="447.0" y2="46" marker-end="url(#ar)"/><line x1="657.5" y1="46" x2="672.5" y2="46" marker-end="url(#ar)"/></g><rect x="0.0" y="16" width="203.5" height="60" rx="10" fill="var(--sunken)" stroke="var(--rule)" stroke-width="1.3" opacity="1"/><text x="101.8" y="42" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-size="14" font-weight="700" fill="var(--text)">Folder</text><text x="101.8" y="60" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9.5" fill="var(--muted)">files + meta</text><rect x="225.5" y="16" width="203.5" height="60" rx="10" fill="color-mix(in srgb,var(--warn) 16%,transparent)" stroke="var(--warn)" stroke-width="1.3" opacity="0.95"/><text x="327.2" y="42" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-size="14" font-weight="700" fill="var(--text)">Match</text><text x="327.2" y="60" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9.5" fill="var(--muted)">adopt or create</text><rect x="451.0" y="16" width="203.5" height="60" rx="10" fill="var(--raise)" stroke="var(--rule)" stroke-width="1.3" opacity="1"/><text x="552.8" y="42" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-size="14" font-weight="700" fill="var(--text)">Upload</text><text x="552.8" y="60" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9.5" fill="var(--muted)">only what's new</text><rect x="676.5" y="16" width="203.5" height="60" rx="10" fill="color-mix(in srgb,var(--good) 14%,transparent)" stroke="var(--good)" stroke-width="1.3" opacity="0.95"/><text x="778.2" y="42" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-size="14" font-weight="700" fill="var(--text)">Publish</text><text x="778.2" y="60" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9.5" fill="var(--muted)">official api</text></svg></div>
+  </div></section>
+
+  <section><div class="wrap p-shipkit">
+    <p class="sec-label">Why it is built this way</p>
+    <div class="feat-list g2 grid rv"><div><h3>Idempotent, because half-failures happen</h3><p>What has already been done is recorded beside the product. A second run updates the listing and uploads only the files that are not there yet. If it finds no record but your account already has a product with that name, it adopts it rather than creating a second one.</p></div><div><h3>A folder is a product</h3><p>Title and price are the only required fields. Omit the file list and it uploads every deliverable in the folder, skipping build leftovers. Your landing page becomes the description if you do not write one.</p></div><div><h3>Your numbers, locally</h3><p>Every run appends a monthly summary to a local JSON file — a record you own, that survives any change to someone else's dashboard, and that your own tools can read.</p></div><div><h3>Nothing to install</h3><p>Standard library only. About 150 lines of API client you can read in one sitting and extend to another platform that offers a real API.</p></div></div>
+  </div></section>
+
+  <section><div class="wrap">
+    <div class="grid g2">
+      <div class="note-card rv"><h3>What you need</h3><p>Python 3.10+ and a Gumroad access token (Settings → Advanced → Applications). No other dependencies.</p></div>
+      <div class="note-card rv"><h3>What it does not do</h3><p>One platform, deliberately. An earlier version drove KDP, Apple Books, Lulu and TikTok through a scripted browser — it worked, and it was a bad thing to hand to anyone else. Those platforms prohibit it, and the failure mode is a suspended account with your catalogue inside it.</p></div>
+    </div>
+  </div></section>
+
+  <section id="buy"><div class="wrap">
+    <p class="sec-label">Get it</p>
+    <h2 class="narrow" style="margin-bottom:2rem">Buy ShipKit</h2>
+    <div class="buybox p-shipkit">
+  <div class="buy-head">
+    <span class="amount">$29</span>
+    <span class="per">one payment · one person · no subscription</span>
+  </div>
+  <ul class="incl">
+    <li>Full source code, yours to modify</li>
+    <li>Everything you produce with it is yours — no royalty, client work included</li>
+    <li>Use it on every machine you personally own</li>
+    <li>Updates for the current major version</li>
+    <li>Questions answered before you buy — just ask</li>
+  </ul>
+  <div class="buy-row">
+    <a class="btn big" href="__LS_shipkit__">Buy on Lemon Squeezy</a>
+    <a class="btn ghost big" href="__GUMROAD_shipkit__">Buy on Gumroad · PayPal enabled</a>
+  </div>
+  <div class="pill-row">
+    <a class="tag" href="__PAYHIP_shipkit__">Also on Payhip</a>
+    <a class="tag" href="mailto:supul9229kalhara@gmail.com?subject=Bank%20transfer%20—%20ShipKit">Bank transfer / invoice</a>
+    <a class="tag" href="mailto:supul9229kalhara@gmail.com?subject=Team%20licence%20—%20ShipKit">Team licence · $87</a>
+  </div>
+  <p class="buy-note">Card and PayPal are both accepted at checkout. All sales are
+    final — <a href="./sales-policy.html">sales policy</a>. Not sure it fits?
+    <a href="mailto:supul9229kalhara@gmail.com?subject=ShipKit%20question">Ask first</a>.</p>
+</div>
+    <p style="margin-top:2rem"><a href="./index.html#products">← All five tools</a></p>
+  </div></section>
 </main>
 <footer>
   <div class="wrap">

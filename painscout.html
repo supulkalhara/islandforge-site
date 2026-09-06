@@ -1,5 +1,5 @@
-<title>Sales Policy — Island Forge</title>
-<meta name="description" content="All sales are final, with one exception.">
+<title>PainScout — Island Forge</title>
+<meta name="description" content="Scrape public complaints, score them with a local model, and track which real problems keep coming back.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;700&display=swap">
@@ -262,12 +262,7 @@ footer nav{display:flex;gap:1.3rem;flex-wrap:wrap}
 .hero-meta{display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;margin-top:2.2rem;
   font-family:"JetBrains Mono",monospace;font-size:.78rem;color:var(--muted)}
 .hero-meta b{color:var(--text);font-weight:400}
-.doc{max-width:40rem;padding-top:clamp(3rem,7vw,5rem)}
-.doc h1{font-size:clamp(2.2rem,5vw,3.2rem)}
-.doc h2{margin-top:2.75rem;font-size:1.45rem}
-.doc ul{padding-left:1.2rem;color:var(--muted)}
-.doc li{margin-bottom:.55rem}
-.doc .updated{font-family:"JetBrains Mono",monospace;font-size:.75rem;color:var(--faint)}</style>
+</style>
 <header class="mast">
   <div class="wrap">
     <a class="brand" href="./index.html">
@@ -286,52 +281,93 @@ footer nav{display:flex;gap:1.3rem;flex-wrap:wrap}
   </div>
 </header>
 <main>
-  <div class="wrap doc">
-    <p class="eyebrow">Legal</p>
-    <h1>Sales policy</h1>
-    <p class="updated">Last updated 30 August 2026</p>
-
-    <h2>All sales are final</h2>
-    <p>These are digital products. The moment you buy, you have the full source code and
-      it cannot be returned. For that reason every sale is final, and there is no
-      change-of-mind refund period.</p>
-    <p>By completing a purchase you agree to immediate delivery and, where your local law
-      allows you to waive it, you give up any statutory cooling-off period for digital
-      content.</p>
-
-    <h2>So ask first</h2>
-    <p>This policy puts the burden on me to describe things accurately and on you to check
-      before buying. Both are easy:</p>
-    <ul>
-      <li>Every product page lists exactly what the tool produces and what it needs to run.</li>
-      <li>Every tool ships a <code>doctor</code> command that reports what your machine can
-        actually do — the answer to most "will this work for me" questions.</li>
-      <li>Email <a href="mailto:supul9229kalhara@gmail.com">supul9229kalhara@gmail.com</a> before you buy and I will tell you
-        honestly whether a tool fits your case, including when the answer is no.</li>
-    </ul>
-
-    <h2>The one exception</h2>
-    <p>If a product does not do what its page says it does, that is a defect, not a change
-      of mind. Tell me and I will fix it, or refund you if I cannot. This applies however
-      long ago you bought it.</p>
-    <p>Setup problems are usually not defects — a missing dependency or a model server that
-      is not running is fixable, and I will help you fix it. Send the output of the tool's
-      <code>doctor</code> command and I will normally have you working within a day.</p>
-
-    <h2>What this policy cannot override</h2>
-    <p>Two things sit above it, and I would rather say so than pretend otherwise:</p>
-    <ul>
-      <li><b>Your statutory rights.</b> Some countries grant consumers rights that cannot
-        be waived by a policy like this one. Where that applies to you, those rights win.</li>
-      <li><b>The payment platform's own rules.</b> Lemon Squeezy and Gumroad act as
-        merchant of record on their sales and operate their own buyer-protection policies.
-        They can issue a refund independently of anything stated here.</li>
-    </ul>
-
-    <h2>Chargebacks</h2>
-    <p>If something is wrong, email me. A chargeback costs us both more than a conversation
-      does, and I have never refused to sort out a genuine problem.</p>
+  <div class="wrap phero p-painscout">
+    <p class="kicker">$39 · one payment</p>
+    <h1>Build for the problem that keeps coming back.</h1>
+    <p class="lede">Reads what people publicly complain about, scores each recurring friction against your audience, and tracks how those scores move week over week.</p>
+    <div class="tags" style="margin-top:1.5rem"><span class="tag">Zero dependencies</span><span class="tag">No API keys</span><span class="tag">Trend tracking</span><span class="tag">JSON export</span></div>
+    <div class="hero-cta">
+      <a class="btn big" href="#buy">Get PainScout — $39</a>
+      <a class="btn ghost big" href="#how">How it works</a>
+    </div>
   </div>
+
+  <section style="padding-top:0">
+    <div class="wrap p-painscout"><div class="term" id="t-painscout" data-frames='[{"t": "$ ", "cls": "p", "d": 0}, {"t": "painscout run<br>", "cls": null, "d": 26}, {"t": "ok   Finance          12 items  reddit.com/r/personalfinance<br>", "cls": "c", "d": 8}, {"t": "ok   Health           12 items  reddit.com/r/insomnia<br>", "cls": "c", "d": 8}, {"t": "ok   Tech             11 items  hnrss.org/newest<br>", "cls": "c", "d": 8}, {"t": "68 snippets from 6 feeds<br><br>", "cls": null, "d": 12}, {"t": "scored 7 frictions from 68 snippets<br>", "cls": "hi", "d": 12}, {"t": "  3 new, 4 seen before<br><br>", "cls": null, "d": 10}, {"t": "PAIN MATRIX \u2014 7 entries<br><br>", "cls": "c", "d": 10}, {"t": "   9 \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588     ", "cls": "ok", "d": 10}, {"t": "[Finance] paycheck to paycheck, can&#x27;t see where it goes<br>", "cls": null, "d": 10}, {"t": "       seen 3x, 2026-07-04 \u2192 2026-08-30<br>", "cls": "c", "d": 8}, {"t": "   8 \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588   \u21912 ", "cls": "ok", "d": 10}, {"t": "[Health]  in bed on time but my mind won&#x27;t switch off<br>", "cls": null, "d": 10}, {"t": "       seen 3x, 2026-07-04 \u2192 2026-08-30<br>", "cls": "c", "d": 8}, {"t": "   4 \u2588\u2588\u2588\u2588          ", "cls": "c", "d": 10}, {"t": "[Tech]    users but no way to charge them<br>", "cls": "c", "d": 10}, {"t": "       seen 1x, 2026-08-30 \u2192 2026-08-30<br>", "cls": "c", "d": 8}]'>
+  <div class="term-bar"><i></i><i></i><i></i><span>painscout run</span>
+    <span class="replay">recorded run</span></div>
+  <pre><span class="p">$ </span>painscout run
+<span class="c">ok   Finance          12 items  reddit.com/r/personalfinance
+</span><span class="c">ok   Health           12 items  reddit.com/r/insomnia
+</span><span class="c">ok   Tech             11 items  hnrss.org/newest
+</span>68 snippets from 6 feeds
+
+<span class="hi">scored 7 frictions from 68 snippets
+</span>  3 new, 4 seen before
+
+<span class="c">PAIN MATRIX — 7 entries
+
+</span><span class="ok">   9 █████████     </span>[Finance] paycheck to paycheck, can&#x27;t see where it goes
+<span class="c">       seen 3x, 2026-07-04 → 2026-08-30
+</span><span class="ok">   8 ████████   ↑2 </span>[Health]  in bed on time but my mind won&#x27;t switch off
+<span class="c">       seen 3x, 2026-07-04 → 2026-08-30
+</span><span class="c">   4 ████          </span><span class="c">[Tech]    users but no way to charge them
+</span><span class="c">       seen 1x, 2026-08-30 → 2026-08-30
+</span></pre>
+</div>
+<div class="term-actions"><button class="btn ghost sm" data-replay="t-painscout">Replay</button><span class="term-note">Real output. A 9 seen three times and rising is a business; a 4 seen once is noise.</span></div></div>
+  </section>
+
+
+
+  <section id="how"><div class="wrap">
+    <p class="sec-label">How it works</p>
+    <h2 class="narrow" style="margin-bottom:2rem">The merge step is what lets the trend column accumulate.</h2>
+    <div class="diagram rv"><svg viewBox="0 0 880 108" role="img" aria-label="Pipeline diagram"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="currentColor" opacity=".45"/></marker></defs><g fill="none" stroke="currentColor" opacity=".28" stroke-width="1.5"><line x1="161.4" y1="46" x2="176.4" y2="46" marker-end="url(#ar)"/><line x1="341.8" y1="46" x2="356.8" y2="46" marker-end="url(#ar)"/><line x1="522.2" y1="46" x2="537.2" y2="46" marker-end="url(#ar)"/><line x1="702.6" y1="46" x2="717.6" y2="46" marker-end="url(#ar)"/></g><rect x="0.0" y="16" width="158.4" height="60" rx="10" fill="var(--sunken)" stroke="var(--rule)" stroke-width="1.3" opacity="1"/><text x="79.2" y="42" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-size="14" font-weight="700" fill="var(--text)">Feeds</text><text x="79.2" y="60" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9.5" fill="var(--muted)">public rss</text><rect x="180.4" y="16" width="158.4" height="60" rx="10" fill="var(--raise)" stroke="var(--rule)" stroke-width="1.3" opacity="1"/><text x="259.6" y="42" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-size="14" font-weight="700" fill="var(--text)">Snippets</text><text x="259.6" y="60" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9.5" fill="var(--muted)">the words used</text><rect x="360.8" y="16" width="158.4" height="60" rx="10" fill="var(--raise)" stroke="var(--rule)" stroke-width="1.3" opacity="1"/><text x="440.0" y="42" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-size="14" font-weight="700" fill="var(--text)">Score</text><text x="440.0" y="60" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9.5" fill="var(--muted)">vs your audience</text><rect x="541.2" y="16" width="158.4" height="60" rx="10" fill="color-mix(in srgb,var(--warn) 16%,transparent)" stroke="var(--warn)" stroke-width="1.3" opacity="0.95"/><text x="620.4" y="42" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-size="14" font-weight="700" fill="var(--text)">Merge</text><text x="620.4" y="60" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9.5" fill="var(--muted)">same pain, one row</text><rect x="721.6" y="16" width="158.4" height="60" rx="10" fill="color-mix(in srgb,var(--good) 14%,transparent)" stroke="var(--good)" stroke-width="1.3" opacity="0.95"/><text x="800.8" y="42" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-size="14" font-weight="700" fill="var(--text)">Matrix</text><text x="800.8" y="60" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9.5" fill="var(--muted)">trend over time</text></svg></div>
+  </div></section>
+
+  <section><div class="wrap p-painscout">
+    <p class="sec-label">Why it is built this way</p>
+    <div class="feat-list g2 grid rv"><div><h3>The trend column is the point</h3><p>A score of 9 seen seven times across seven weeks and still climbing is a business. A 4 seen once is noise. Only a matrix that persists across runs can tell you which is which — a daily list of today's complaints cannot.</p></div><div><h3>Same pain, one row</h3><p>People word the same problem differently every week. Those must merge or the mention count never accumulates. Embeddings handle it; without the embedding model a looser lexical fallback takes over, and the tool says so when it does.</p></div><div><h3>One sentence changes everything</h3><p>Scoring is driven by a single line describing who you serve. Rewrite it for “overwhelmed parents of toddlers” and the same feeds produce a completely different board. A vague audience is the main cause of a boring one.</p></div><div><h3>Nothing to sign up for</h3><p>Every source is a public feed read with the standard library. Scoring runs on your machine. Running it daily for a year costs nothing, and it installs in seconds because it has no dependencies at all.</p></div></div>
+  </div></section>
+
+  <section><div class="wrap">
+    <div class="grid g2">
+      <div class="note-card rv"><h3>What you need</h3><p>Python 3.10+. Scraping needs only a network connection. Scoring needs Ollama or any compatible local model; the embedding model is recommended for de-duplication.</p></div>
+      <div class="note-card rv"><h3>What it does not do</h3><p>It reads public complaints, not your market — Reddit and HN skew young, English-speaking and online. The score is one model's judgement, re-rolled each run; the trend is the signal. And snippets are titles and summaries, not whole threads — go read the actual threads before you build.</p></div>
+    </div>
+  </div></section>
+
+  <section id="buy"><div class="wrap">
+    <p class="sec-label">Get it</p>
+    <h2 class="narrow" style="margin-bottom:2rem">Buy PainScout</h2>
+    <div class="buybox p-painscout">
+  <div class="buy-head">
+    <span class="amount">$39</span>
+    <span class="per">one payment · one person · no subscription</span>
+  </div>
+  <ul class="incl">
+    <li>Full source code, yours to modify</li>
+    <li>Everything you produce with it is yours — no royalty, client work included</li>
+    <li>Use it on every machine you personally own</li>
+    <li>Updates for the current major version</li>
+    <li>Questions answered before you buy — just ask</li>
+  </ul>
+  <div class="buy-row">
+    <a class="btn big" href="__LS_painscout__">Buy on Lemon Squeezy</a>
+    <a class="btn ghost big" href="__GUMROAD_painscout__">Buy on Gumroad · PayPal enabled</a>
+  </div>
+  <div class="pill-row">
+    <a class="tag" href="__PAYHIP_painscout__">Also on Payhip</a>
+    <a class="tag" href="mailto:supul9229kalhara@gmail.com?subject=Bank%20transfer%20—%20PainScout">Bank transfer / invoice</a>
+    <a class="tag" href="mailto:supul9229kalhara@gmail.com?subject=Team%20licence%20—%20PainScout">Team licence · $117</a>
+  </div>
+  <p class="buy-note">Card and PayPal are both accepted at checkout. All sales are
+    final — <a href="./sales-policy.html">sales policy</a>. Not sure it fits?
+    <a href="mailto:supul9229kalhara@gmail.com?subject=PainScout%20question">Ask first</a>.</p>
+</div>
+    <p style="margin-top:2rem"><a href="./index.html#products">← All five tools</a></p>
+  </div></section>
 </main>
 <footer>
   <div class="wrap">
