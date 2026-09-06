@@ -1,4 +1,4 @@
-<title>Sales Policy — Island Forge</title>
+<title>Sales Policy, Island Forge</title>
 <meta name="description" content="All sales are final, with one exception.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -90,7 +90,7 @@ img{max-width:100%;height:auto;display:block}
 
 /* ---------- reveal ---------- */
 /* Reveal-on-scroll is an enhancement, never a gate. Without JS the .js class is
-   never set, so everything renders visible — a broken script must not hide content. */
+   never set, so everything renders visible, a broken script must not hide content. */
 .js .rv{opacity:0;transform:translateY(14px);
   transition:opacity .7s cubic-bezier(.2,.8,.3,1),transform .7s cubic-bezier(.2,.8,.3,1)}
 .js .rv.in{opacity:1;transform:none}
@@ -262,6 +262,24 @@ footer nav{display:flex;gap:1.3rem;flex-wrap:wrap}
 .hero-meta{display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;margin-top:2.2rem;
   font-family:"JetBrains Mono",monospace;font-size:.78rem;color:var(--muted)}
 .hero-meta b{color:var(--text);font-weight:400}
+.privacy-band{background:var(--raise)}
+.opt{background:var(--surface);border-radius:var(--r);padding:1.5rem;box-shadow:var(--shadow)}
+.opt-tag{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:.66rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--pink,var(--ink));
+  margin-bottom:.6rem}
+.opt h3{margin-bottom:.5rem}
+.opt p{color:var(--muted);font-size:.96rem;margin:0 0 .7rem}
+.opt-spec{font-family:"JetBrains Mono",monospace;font-size:.74rem;color:var(--faint);
+  margin:0!important;padding-top:.7rem;border-top:1px solid var(--rule)}
+.factbox{margin-top:1.5rem;background:var(--surface);border-radius:var(--r);
+  box-shadow:var(--shadow);overflow:hidden}
+.factbox>div{display:grid;gap:.2rem 1.5rem;padding:1.05rem 1.4rem;
+  border-bottom:1px solid var(--rule)}
+@media(min-width:44rem){.factbox>div{grid-template-columns:14rem 1fr;align-items:baseline}}
+.factbox>div:last-child{border-bottom:0}
+.fk{font-family:"JetBrains Mono",monospace;font-size:.72rem;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--faint)}
+.fv{color:var(--text);font-size:.97rem}
 .doc{max-width:40rem;padding-top:clamp(3rem,7vw,5rem)}
 .doc h1{font-size:clamp(2.2rem,5vw,3.2rem)}
 .doc h2{margin-top:2.75rem;font-size:1.45rem}
@@ -279,6 +297,7 @@ footer nav{display:flex;gap:1.3rem;flex-wrap:wrap}
       </svg>Island Forge</a>
     <nav>
       <a href="./index.html#products">Products</a>
+      <a href="./index.html#privacy">Privacy</a>
       <a href="./index.html#services">Services</a>
       <a href="./index.html#contact">Contact</a>
       <a class="btn sm" href="./index.html#products">Browse tools</a>
@@ -305,7 +324,7 @@ footer nav{display:flex;gap:1.3rem;flex-wrap:wrap}
     <ul>
       <li>Every product page lists exactly what the tool produces and what it needs to run.</li>
       <li>Every tool ships a <code>doctor</code> command that reports what your machine can
-        actually do — the answer to most "will this work for me" questions.</li>
+        actually do. The answer to most "will this work for me" questions.</li>
       <li>Email <a href="mailto:supul9229kalhara@gmail.com">supul9229kalhara@gmail.com</a> before you buy and I will tell you
         honestly whether a tool fits your case, including when the answer is no.</li>
     </ul>
@@ -314,7 +333,7 @@ footer nav{display:flex;gap:1.3rem;flex-wrap:wrap}
     <p>If a product does not do what its page says it does, that is a defect, not a change
       of mind. Tell me and I will fix it, or refund you if I cannot. This applies however
       long ago you bought it.</p>
-    <p>Setup problems are usually not defects — a missing dependency or a model server that
+    <p>Setup problems are usually not defects, a missing dependency or a model server that
       is not running is fixable, and I will help you fix it. Send the output of the tool's
       <code>doctor</code> command and I will normally have you working within a day.</p>
 
@@ -335,7 +354,7 @@ footer nav{display:flex;gap:1.3rem;flex-wrap:wrap}
 </main>
 <footer>
   <div class="wrap">
-    <span>Island Forge — small, sharp tools for people who ship alone.</span>
+    <span>Island Forge. Small, sharp tools for people who ship alone.</span>
     <nav>
       <a href="./terms.html">Terms</a>
       <a href="./sales-policy.html">Sales policy</a>
@@ -359,7 +378,7 @@ const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){
   e.target.classList.add('in');io.unobserve(e.target);}})},{rootMargin:'0px 0px -8% 0px'});
 document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%4*60)+'ms';io.observe(el);});
 
-// terminal replay — types out a recorded run
+// terminal replay, types out a recorded run
 function playTerm(root){
   const pre=root.querySelector('pre'); const frames=JSON.parse(root.dataset.frames);
   const btn=root.parentElement.querySelector('[data-replay]');

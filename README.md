@@ -1,10 +1,10 @@
-# Island Forge — storefront
+# Island Forge, storefront
 
 Static site for GitHub Pages. No build step, no framework, no dependencies.
 
 ```
-index.html            products, services, payment, contact
-bookforge.html        product page — recorded demo, real output, diagram, buy
+index.html            products, privacy, services, payment, contact
+bookforge.html        product page: recorded demo, real output, diagram, buy
 designforge.html
 painscout.html
 reelforge.html
@@ -19,13 +19,13 @@ STOREFRONT-LISTINGS.md  everything to paste into both storefronts
 
 | Tool | Price | Why |
 | --- | ---: | --- |
-| BookForge | $79 | Five formats, an EPUB writer, a quality gate — the largest |
+| BookForge | $79 | Five formats, an EPUB writer, a quality gate, the largest |
 | ReelForge | $69 | Two tools in one: video studio and pipeline orchestrator |
 | DesignForge | $59 | Full factory: trends, dedup memory, print pipeline, wallpapers |
 | PainScout | $39 | One focused job, zero dependencies |
 | ShipKit | $29 | A single platform, deliberately small |
 
-Bundle: **$179** (vs $275). Team licence: 3× the single price for 5 seats.
+Bundle: **$179** against $275. Team licence: 3x the single price for 5 seats.
 
 ## Publish
 
@@ -43,29 +43,29 @@ Every buy link is a visible placeholder, so a missed one cannot fail silently:
 grep -o '__[A-Z_a-z]*__' *.html | sort -u
 ```
 
-`STOREFRONT-LISTINGS.md` has the per-product listing copy and the replacement
-commands. Do one product at a time.
+`STOREFRONT-LISTINGS.md` has the per-product copy and the replacement commands.
 
-## What is on a product page
+## The positioning
 
-1. **Recorded demo** — a transcript of a real run, typed out on scroll, with a
-   Replay button. Labelled "recorded run" in the title bar, because it is a
-   replay and not a live shell.
-2. **Real output** — actual files from those runs (BookForge PDF pages and
-   cover, ReelForge video frames). Not mockups.
-3. **How it works** — an architecture diagram, drawn as inline SVG so it stays
-   sharp and follows the light/dark theme.
-4. **Why it is built this way** — the reasoning behind each guard rail.
-5. **What you need / what it does not do** — stated before the buy button, not
-   after.
-6. **Buy** — Lemon Squeezy, Gumroad (PayPal enabled), Payhip, bank transfer and
-   team licences.
+Every product page carries a "Your machine, your data" section stating, for that
+specific tool, whether it runs offline and what leaves the computer. The answers
+differ per tool and the pages say so rather than making one sweeping claim:
+
+* BookForge and DesignForge run fully offline once models are downloaded
+* PainScout fetches the public RSS feeds you list, because that is the job
+* ReelForge is offline unless you enable the voiceover
+* ShipKit talks to Gumroad by design and involves no model at all
+
+Model download sizes are stated on the page (roughly 9 GB for a 14B model, 4.7 GB
+for a 7B, 274 MB for embeddings, 6.9 GB for SDXL), because hiding that produces
+refund requests. Anyone who would rather not download models can set an API base
+and key and use any OpenAI-compatible endpoint instead.
 
 ## Notes
 
-- The site follows the visitor's light/dark preference. Every accent was checked
-  for contrast in both.
-- Scroll reveals are an enhancement: without JavaScript everything renders
-  visible, and a 2-second failsafe reveals anything the observer missed.
-- Fonts come from Google Fonts. Everything else is self-contained; total page
-  weight is well under 200 KB excluding images.
+- Follows the visitor's light or dark preference. Every accent was contrast
+  checked in both.
+- Scroll reveals are an enhancement. Without JavaScript everything renders
+  visible, with a 2 second failsafe.
+- No em dashes anywhere in the copy.
+- Fonts come from Google Fonts. Everything else is self-contained.

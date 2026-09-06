@@ -1,5 +1,5 @@
-<title>BookForge — Island Forge</title>
-<meta name="description" content="Turn a one-page brief into a finished, print-ready book — designed PDF, EPUB3, cover art and listing copy — from models on your own machine.">
+<title>BookForge, Island Forge</title>
+<meta name="description" content="Turn a one-page brief into a finished, print-ready book, designed PDF, EPUB3, cover art and listing copy, from models on your own machine.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;700&display=swap">
@@ -90,7 +90,7 @@ img{max-width:100%;height:auto;display:block}
 
 /* ---------- reveal ---------- */
 /* Reveal-on-scroll is an enhancement, never a gate. Without JS the .js class is
-   never set, so everything renders visible — a broken script must not hide content. */
+   never set, so everything renders visible, a broken script must not hide content. */
 .js .rv{opacity:0;transform:translateY(14px);
   transition:opacity .7s cubic-bezier(.2,.8,.3,1),transform .7s cubic-bezier(.2,.8,.3,1)}
 .js .rv.in{opacity:1;transform:none}
@@ -262,6 +262,24 @@ footer nav{display:flex;gap:1.3rem;flex-wrap:wrap}
 .hero-meta{display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;margin-top:2.2rem;
   font-family:"JetBrains Mono",monospace;font-size:.78rem;color:var(--muted)}
 .hero-meta b{color:var(--text);font-weight:400}
+.privacy-band{background:var(--raise)}
+.opt{background:var(--surface);border-radius:var(--r);padding:1.5rem;box-shadow:var(--shadow)}
+.opt-tag{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:.66rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--pink,var(--ink));
+  margin-bottom:.6rem}
+.opt h3{margin-bottom:.5rem}
+.opt p{color:var(--muted);font-size:.96rem;margin:0 0 .7rem}
+.opt-spec{font-family:"JetBrains Mono",monospace;font-size:.74rem;color:var(--faint);
+  margin:0!important;padding-top:.7rem;border-top:1px solid var(--rule)}
+.factbox{margin-top:1.5rem;background:var(--surface);border-radius:var(--r);
+  box-shadow:var(--shadow);overflow:hidden}
+.factbox>div{display:grid;gap:.2rem 1.5rem;padding:1.05rem 1.4rem;
+  border-bottom:1px solid var(--rule)}
+@media(min-width:44rem){.factbox>div{grid-template-columns:14rem 1fr;align-items:baseline}}
+.factbox>div:last-child{border-bottom:0}
+.fk{font-family:"JetBrains Mono",monospace;font-size:.72rem;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--faint)}
+.fv{color:var(--text);font-size:.97rem}
 </style>
 <header class="mast">
   <div class="wrap">
@@ -274,6 +292,7 @@ footer nav{display:flex;gap:1.3rem;flex-wrap:wrap}
       </svg>Island Forge</a>
     <nav>
       <a href="./index.html#products">Products</a>
+      <a href="./index.html#privacy">Privacy</a>
       <a href="./index.html#services">Services</a>
       <a href="./index.html#contact">Contact</a>
       <a class="btn sm" href="./index.html#products">Browse tools</a>
@@ -284,16 +303,16 @@ footer nav{display:flex;gap:1.3rem;flex-wrap:wrap}
   <div class="wrap phero p-bookforge">
     <p class="kicker">$79 · one payment</p>
     <h1>A brief goes in. A finished book comes out.</h1>
-    <p class="lede">Designed PDF interior, valid EPUB3, cover art, a full paperback wrap and the listing copy — plus a quality gate that refuses to ship a placeholder cover or a truncated manuscript.</p>
+    <p class="lede">Designed PDF interior, valid EPUB3, cover art, a full paperback wrap and the listing copy. Plus a quality gate that refuses to ship a placeholder cover or a truncated manuscript.</p>
     <div class="tags" style="margin-top:1.5rem"><span class="tag">PDF + EPUB3</span><span class="tag">Cover art</span><span class="tag">Quality gate</span><span class="tag">5 book formats</span><span class="tag">Runs offline</span></div>
     <div class="hero-cta">
-      <a class="btn big" href="#buy">Get BookForge — $79</a>
+      <a class="btn big" href="#buy">Get BookForge, $79</a>
       <a class="btn ghost big" href="#how">How it works</a>
     </div>
   </div>
 
   <section style="padding-top:0">
-    <div class="wrap p-bookforge"><div class="term" id="t-bookforge" data-frames='[{"t": "$ ", "cls": "p", "d": 0}, {"t": "bookforge guide brief.json<br>", "cls": null, "d": 26}, {"t": "cover art: http://127.0.0.1:7860<br>", "cls": "c", "d": 10}, {"t": "interior.pdf     9 pages, designed<br>", "cls": null, "d": 10}, {"t": "book.epub        EPUB3, validated<br>", "cls": null, "d": 10}, {"t": "cover-wrap.pdf   spine 0.213in<br>", "cls": null, "d": 10}, {"t": "<br>DONE: The Off Switch<br>", "cls": "hi", "d": 10}, {"t": "  out/2026-08-30-the-off-switch<br><br>", "cls": "c", "d": 10}, {"t": "$ ", "cls": "p", "d": 300}, {"t": "bookforge qc 2026-08-30-the-off-switch<br>", "cls": null, "d": 26}, {"t": "  [PASS] ", "cls": "ok", "d": 8}, {"t": "print/interior.pdf         ok<br>", "cls": null, "d": 8}, {"t": "  [PASS] ", "cls": "ok", "d": 8}, {"t": "print/cover.png            ok<br>", "cls": null, "d": 8}, {"t": "  [PASS] ", "cls": "ok", "d": 8}, {"t": "digital/landing.html       ok<br>", "cls": null, "d": 8}, {"t": "  [FAIL] ", "cls": "no", "d": 8}, {"t": "interior pages             9p (min 12)<br>", "cls": null, "d": 8}, {"t": "  [FAIL] ", "cls": "no", "d": 8}, {"t": "word count                 807 words (min 2000)<br>", "cls": null, "d": 8}, {"t": "  [FAIL] ", "cls": "no", "d": 8}, {"t": "cover is real              cover.source=fallback<br>", "cls": null, "d": 8}, {"t": "<br>QC FAILED", "cls": "no", "d": 10}, {"t": " \u2014 BLOCKED, will not upload<br>", "cls": null, "d": 10}]'>
+    <div class="wrap p-bookforge"><div class="term" id="t-bookforge" data-frames='[{"t": "$ ", "cls": "p", "d": 0}, {"t": "bookforge guide brief.json<br>", "cls": null, "d": 26}, {"t": "cover art: http://127.0.0.1:7860<br>", "cls": "c", "d": 10}, {"t": "interior.pdf     9 pages, designed<br>", "cls": null, "d": 10}, {"t": "book.epub        EPUB3, validated<br>", "cls": null, "d": 10}, {"t": "cover-wrap.pdf   spine 0.213in<br>", "cls": null, "d": 10}, {"t": "<br>DONE: The Off Switch<br>", "cls": "hi", "d": 10}, {"t": "  out/2026-08-30-the-off-switch<br><br>", "cls": "c", "d": 10}, {"t": "$ ", "cls": "p", "d": 300}, {"t": "bookforge qc 2026-08-30-the-off-switch<br>", "cls": null, "d": 26}, {"t": "  [PASS] ", "cls": "ok", "d": 8}, {"t": "print/interior.pdf         ok<br>", "cls": null, "d": 8}, {"t": "  [PASS] ", "cls": "ok", "d": 8}, {"t": "print/cover.png            ok<br>", "cls": null, "d": 8}, {"t": "  [PASS] ", "cls": "ok", "d": 8}, {"t": "digital/landing.html       ok<br>", "cls": null, "d": 8}, {"t": "  [FAIL] ", "cls": "no", "d": 8}, {"t": "interior pages             9p (min 12)<br>", "cls": null, "d": 8}, {"t": "  [FAIL] ", "cls": "no", "d": 8}, {"t": "word count                 807 words (min 2000)<br>", "cls": null, "d": 8}, {"t": "  [FAIL] ", "cls": "no", "d": 8}, {"t": "cover is real              cover.source=fallback<br>", "cls": null, "d": 8}, {"t": "<br>QC FAILED", "cls": "no", "d": 10}, {"t": ". BLOCKED, will not upload<br>", "cls": null, "d": 10}]'>
   <div class="term-bar"><i></i><i></i><i></i><span>bookforge guide brief.json</span>
     <span class="replay">recorded run</span></div>
   <pre><span class="p">$ </span>bookforge guide brief.json
@@ -313,7 +332,7 @@ DONE: The Off Switch
 <span class="no">  [FAIL] </span>word count                 807 words (min 2000)
 <span class="no">  [FAIL] </span>cover is real              cover.source=fallback
 <span class="no">
-QC FAILED</span> — BLOCKED, will not upload
+QC FAILED</span>. BLOCKED, will not upload
 </pre>
 </div>
 <div class="term-actions"><button class="btn ghost sm" data-replay="t-bookforge">Replay</button><span class="term-note">A real run. The gate caught a short manuscript and a placeholder cover.</span></div></div>
@@ -322,9 +341,9 @@ QC FAILED</span> — BLOCKED, will not upload
 <section><div class="wrap">
     <p class="sec-label">Real output</p>
     <h2 class="narrow">Files from an actual run</h2>
-    <p class="lede" style="margin-bottom:2rem">Not mockups — these came out of the
+    <p class="lede" style="margin-bottom:2rem">Not mockups, these came out of the
       command shown above.</p>
-    <div class="shots"><figure class="shot rv"><img src="./assets/bf-page-2-sm.png" alt="interior.pdf — chapter rule, callout box, running header" loading="lazy"><figcaption>interior.pdf — chapter rule, callout box, running header</figcaption></figure><figure class="shot rv"><img src="./assets/bf-page-0-sm.png" alt="interior.pdf — designed title page" loading="lazy"><figcaption>interior.pdf — designed title page</figcaption></figure><figure class="shot rv"><img src="./assets/bf-cover-sm.png" alt="cover.png — 1600×2560, title set over generated art" loading="lazy"><figcaption>cover.png — 1600×2560, title set over generated art</figcaption></figure></div>
+    <div class="shots"><figure class="shot rv"><img src="./assets/bf-page-2-sm.png" alt="interior.pdf, chapter rule, callout box, running header" loading="lazy"><figcaption>interior.pdf, chapter rule, callout box, running header</figcaption></figure><figure class="shot rv"><img src="./assets/bf-page-0-sm.png" alt="interior.pdf, designed title page" loading="lazy"><figcaption>interior.pdf, designed title page</figcaption></figure><figure class="shot rv"><img src="./assets/bf-cover-sm.png" alt="cover.png, 1600×2560, title set over generated art" loading="lazy"><figcaption>cover.png, 1600×2560, title set over generated art</figcaption></figure></div>
   </div></section>
 
   <section id="how"><div class="wrap">
@@ -335,13 +354,37 @@ QC FAILED</span> — BLOCKED, will not upload
 
   <section><div class="wrap p-bookforge">
     <p class="sec-label">Why it is built this way</p>
-    <div class="feat-list g2 grid rv"><div><h3>It refuses to ship a bad book</h3><p>Generated books fail quietly and expensively: the image model was asleep so every cover is the same gradient, or a truncated run produced an eight-page “book”. The gate blocks a placeholder cover, a short manuscript, a thin page count or a missing file — and exits non-zero so a pipeline stops with it.</p></div><div><h3>Print-correct, not print-hopeful</h3><p>The wrap is built at 300 DPI with the spine sized to the actual page count and the barcode area left clear. Oversized full-bleed interiors compress from 100 MB to under 10 with no visible loss at print size.</p></div><div><h3>Five formats, one contract</h3><p>Guides, sudoku, mazes, word search and coloring books all land in the same folder shape. That consistency is what makes the rest automatable.</p></div><div><h3>Nothing phones home</h3><p>Two optional localhost endpoints. No account, no API key, no telemetry. Your manuscripts never leave the machine, and a book costs nothing to make.</p></div></div>
+    <div class="feat-list g2 grid rv"><div><h3>It refuses to ship a bad book</h3><p>Generated books fail quietly and expensively: the image model was asleep so every cover is the same gradient, or a truncated run produced an eight-page “book”. The gate blocks a placeholder cover, a short manuscript, a thin page count or a missing file, and exits non-zero so a pipeline stops with it.</p></div><div><h3>Print-correct, not print-hopeful</h3><p>The wrap is built at 300 DPI with the spine sized to the actual page count and the barcode area left clear. Oversized full-bleed interiors compress from 100 MB to under 10 with no visible loss at print size.</p></div><div><h3>Five formats, one contract</h3><p>Guides, sudoku, mazes, word search and coloring books all land in the same folder shape. That consistency is what makes the rest automatable.</p></div><div><h3>Nothing phones home</h3><p>Two optional localhost endpoints. No account, no API key, no telemetry. Your manuscripts never leave the machine, and a book costs nothing to make.</p></div></div>
+  </div></section>
+
+  <section id="privacy" class="privacy-band"><div class="wrap p-bookforge">
+    <p class="sec-label">Your machine, your data</p>
+    <h2 class="narrow" style="margin-bottom:.9rem">Two ways to run it. You pick.</h2>
+    <p class="lede" style="margin-bottom:2rem">There is no Island Forge server in
+      the middle of either one. No account, no telemetry, no licence check that
+      calls home.</p>
+    <div class="grid g2 rv">
+      <div class="opt"><span class="opt-tag">Option A</span>
+        <h3>On your own machine</h3>
+        <p>Download an open model once and run everything locally. Your inputs and
+          your output never leave the computer.</p>
+        <p class="opt-spec">ollama pull qwen2.5:14b · ~9 GB once · 16 GB RAM</p></div>
+      <div class="opt"><span class="opt-tag">Option B</span>
+        <h3>An endpoint you trust</h3>
+        <p>Set an API key and it uses any OpenAI-compatible endpoint instead: OpenAI, Azure OpenAI, Together, Groq, OpenRouter, vLLM, or your own LiteLLM gateway.</p>
+        <p class="opt-spec">API base + key, set in .env</p></div>
+    </div>
+    <div class="factbox rv">
+      <div><span class="fk">Runs fully offline?</span><span class="fv">Completely, once the models are on disk.</span></div>
+      <div><span class="fk">What leaves your machine</span><span class="fv">Nothing. No account, no telemetry, no licence check that phones home.</span></div>
+      <div><span class="fk">Where the model runs</span><span class="fv">Printed by <code>bookforge doctor</code> on every run, so you are never guessing.</span></div>
+    </div>
   </div></section>
 
   <section><div class="wrap">
     <div class="grid g2">
       <div class="note-card rv"><h3>What you need</h3><p>Python 3.10+, macOS or Linux. Optionally an Ollama-compatible text model and an Automatic1111-compatible image server (Draw Things, AUTOMATIC1111, Forge, SD.Next). Without them it still builds, and tells you what is missing.</p></div>
-      <div class="note-card rv"><h3>What it does not do</h3><p>It does not write the book for you — you supply the brief. It does not upload anything: Amazon KDP has no publishing API, so the last step is you pasting the generated fields into their form. Slower, and it keeps your account.</p></div>
+      <div class="note-card rv"><h3>What it does not do</h3><p>It does not write the book for you, you supply the brief. It does not upload anything: Amazon KDP has no publishing API, so the last step is you pasting the generated fields into their form. Slower, and it keeps your account.</p></div>
     </div>
   </div></section>
 
@@ -355,10 +398,10 @@ QC FAILED</span> — BLOCKED, will not upload
   </div>
   <ul class="incl">
     <li>Full source code, yours to modify</li>
-    <li>Everything you produce with it is yours — no royalty, client work included</li>
+    <li>Everything you produce with it is yours, no royalty, client work included</li>
     <li>Use it on every machine you personally own</li>
     <li>Updates for the current major version</li>
-    <li>Questions answered before you buy — just ask</li>
+    <li>Questions answered before you buy, just ask</li>
   </ul>
   <div class="buy-row">
     <a class="btn big" href="__LS_bookforge__">Buy on Lemon Squeezy</a>
@@ -366,11 +409,11 @@ QC FAILED</span> — BLOCKED, will not upload
   </div>
   <div class="pill-row">
     <a class="tag" href="__PAYHIP_bookforge__">Also on Payhip</a>
-    <a class="tag" href="mailto:supul9229kalhara@gmail.com?subject=Bank%20transfer%20—%20BookForge">Bank transfer / invoice</a>
-    <a class="tag" href="mailto:supul9229kalhara@gmail.com?subject=Team%20licence%20—%20BookForge">Team licence · $237</a>
+    <a class="tag" href="mailto:supul9229kalhara@gmail.com?subject=Bank%20transfer%20, %20BookForge">Bank transfer / invoice</a>
+    <a class="tag" href="mailto:supul9229kalhara@gmail.com?subject=Team%20licence%20, %20BookForge">Team licence · $237</a>
   </div>
   <p class="buy-note">Card and PayPal are both accepted at checkout. All sales are
-    final — <a href="./sales-policy.html">sales policy</a>. Not sure it fits?
+    final, <a href="./sales-policy.html">sales policy</a>. Not sure it fits?
     <a href="mailto:supul9229kalhara@gmail.com?subject=BookForge%20question">Ask first</a>.</p>
 </div>
     <p style="margin-top:2rem"><a href="./index.html#products">← All five tools</a></p>
@@ -378,7 +421,7 @@ QC FAILED</span> — BLOCKED, will not upload
 </main>
 <footer>
   <div class="wrap">
-    <span>Island Forge — small, sharp tools for people who ship alone.</span>
+    <span>Island Forge. Small, sharp tools for people who ship alone.</span>
     <nav>
       <a href="./terms.html">Terms</a>
       <a href="./sales-policy.html">Sales policy</a>
@@ -402,7 +445,7 @@ const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){
   e.target.classList.add('in');io.unobserve(e.target);}})},{rootMargin:'0px 0px -8% 0px'});
 document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%4*60)+'ms';io.observe(el);});
 
-// terminal replay — types out a recorded run
+// terminal replay, types out a recorded run
 function playTerm(root){
   const pre=root.querySelector('pre'); const frames=JSON.parse(root.dataset.frames);
   const btn=root.parentElement.querySelector('[data-replay]');

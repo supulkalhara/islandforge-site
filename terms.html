@@ -1,5 +1,5 @@
-<title>Terms of Sale — Island Forge</title>
-<meta name="description" content="Licence terms and warranty.">
+<title>Terms of Sale, Island Forge</title>
+<meta name="description" content="Licence terms, delivery, support and warranty.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;700&display=swap">
@@ -90,7 +90,7 @@ img{max-width:100%;height:auto;display:block}
 
 /* ---------- reveal ---------- */
 /* Reveal-on-scroll is an enhancement, never a gate. Without JS the .js class is
-   never set, so everything renders visible — a broken script must not hide content. */
+   never set, so everything renders visible, a broken script must not hide content. */
 .js .rv{opacity:0;transform:translateY(14px);
   transition:opacity .7s cubic-bezier(.2,.8,.3,1),transform .7s cubic-bezier(.2,.8,.3,1)}
 .js .rv.in{opacity:1;transform:none}
@@ -262,6 +262,24 @@ footer nav{display:flex;gap:1.3rem;flex-wrap:wrap}
 .hero-meta{display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;margin-top:2.2rem;
   font-family:"JetBrains Mono",monospace;font-size:.78rem;color:var(--muted)}
 .hero-meta b{color:var(--text);font-weight:400}
+.privacy-band{background:var(--raise)}
+.opt{background:var(--surface);border-radius:var(--r);padding:1.5rem;box-shadow:var(--shadow)}
+.opt-tag{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:.66rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--pink,var(--ink));
+  margin-bottom:.6rem}
+.opt h3{margin-bottom:.5rem}
+.opt p{color:var(--muted);font-size:.96rem;margin:0 0 .7rem}
+.opt-spec{font-family:"JetBrains Mono",monospace;font-size:.74rem;color:var(--faint);
+  margin:0!important;padding-top:.7rem;border-top:1px solid var(--rule)}
+.factbox{margin-top:1.5rem;background:var(--surface);border-radius:var(--r);
+  box-shadow:var(--shadow);overflow:hidden}
+.factbox>div{display:grid;gap:.2rem 1.5rem;padding:1.05rem 1.4rem;
+  border-bottom:1px solid var(--rule)}
+@media(min-width:44rem){.factbox>div{grid-template-columns:14rem 1fr;align-items:baseline}}
+.factbox>div:last-child{border-bottom:0}
+.fk{font-family:"JetBrains Mono",monospace;font-size:.72rem;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--faint)}
+.fv{color:var(--text);font-size:.97rem}
 .doc{max-width:40rem;padding-top:clamp(3rem,7vw,5rem)}
 .doc h1{font-size:clamp(2.2rem,5vw,3.2rem)}
 .doc h2{margin-top:2.75rem;font-size:1.45rem}
@@ -279,6 +297,7 @@ footer nav{display:flex;gap:1.3rem;flex-wrap:wrap}
       </svg>Island Forge</a>
     <nav>
       <a href="./index.html#products">Products</a>
+      <a href="./index.html#privacy">Privacy</a>
       <a href="./index.html#services">Services</a>
       <a href="./index.html#contact">Contact</a>
       <a class="btn sm" href="./index.html#products">Browse tools</a>
@@ -294,7 +313,7 @@ footer nav{display:flex;gap:1.3rem;flex-wrap:wrap}
     <h2>Who you are buying from</h2>
     <p>Island Forge is a sole trader based in Sri Lanka, contactable at
       <a href="mailto:supul9229kalhara@gmail.com">supul9229kalhara@gmail.com</a>. Payments are processed by Lemon Squeezy or
-      Gumroad, who act as merchant of record where stated at checkout — your card or
+      Gumroad, who act as merchant of record where stated at checkout, your card or
       PayPal statement may show their name rather than Island Forge.</p>
     <p>Card and PayPal are both accepted at checkout. Bank transfer is available for
       team licences and consulting, by invoice.</p>
@@ -302,7 +321,7 @@ footer nav{display:flex;gap:1.3rem;flex-wrap:wrap}
     <h2>What you are buying</h2>
     <p>A licence to use the software, not the software itself. Each product page states
       the price. A single licence covers one person, on as many computers as that person
-      controls, for their own projects — personal or commercial. A team licence covers the
+      controls, for their own projects, personal or commercial. A team licence covers the
       number of seats stated on your receipt.</p>
     <p>Everything you produce with the software is yours. No royalty is claimed on the
       books, designs, videos or listings it generates, and using it for client work is
@@ -323,16 +342,16 @@ footer nav{display:flex;gap:1.3rem;flex-wrap:wrap}
 
     <h2>Requirements</h2>
     <p>These are command-line tools requiring Python 3.10 or later on macOS or Linux, and
-      in some cases additional software you supply yourself — ffmpeg, a local model server,
+      in some cases additional software you supply yourself, ffmpeg, a local model server,
       or a platform account. Each product page states its requirements plainly, and every
       tool ships a <code>doctor</code> command that reports what your machine can do.</p>
     <p>Because sales are final (see the <a href="./sales-policy.html">sales policy</a>),
-      check the requirements before buying — and if you are unsure, ask. I would rather
+      check the requirements before buying, and if you are unsure, ask. I would rather
       answer a question than take money for something that will not run.</p>
 
     <h2>Support</h2>
     <p>Email support, usually answered within two working days. This is a one-person
-      operation, not a support desk with guaranteed response times — if you need
+      operation, not a support desk with guaranteed response times, if you need
       contractual response guarantees, say so before buying and we will agree them
       separately.</p>
 
@@ -360,7 +379,7 @@ footer nav{display:flex;gap:1.3rem;flex-wrap:wrap}
 </main>
 <footer>
   <div class="wrap">
-    <span>Island Forge — small, sharp tools for people who ship alone.</span>
+    <span>Island Forge. Small, sharp tools for people who ship alone.</span>
     <nav>
       <a href="./terms.html">Terms</a>
       <a href="./sales-policy.html">Sales policy</a>
@@ -384,7 +403,7 @@ const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){
   e.target.classList.add('in');io.unobserve(e.target);}})},{rootMargin:'0px 0px -8% 0px'});
 document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%4*60)+'ms';io.observe(el);});
 
-// terminal replay — types out a recorded run
+// terminal replay, types out a recorded run
 function playTerm(root){
   const pre=root.querySelector('pre'); const frames=JSON.parse(root.dataset.frames);
   const btn=root.parentElement.querySelector('[data-replay]');
