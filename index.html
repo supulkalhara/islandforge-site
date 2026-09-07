@@ -1,0 +1,640 @@
+<title>Island Forge</title>
+<meta name="description" content="Five command-line tools for solo operators: book production, print-on-demand design, product research, vertical video and publishing automation. $29 to $79 each.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;700&display=swap">
+<style>
+:root{
+  color-scheme:light dark;
+  --paper:#FBF9F5;--surface:#FFFFFF;--raise:#F4F0E7;--sunken:#EFEAE0;
+  --text:#1B1917;--muted:#6A635A;--faint:#9A9186;--rule:#E3DDD2;
+  --ink:#1F3A5F;--accent:#B4381F;--on-ink:#FFFFFF;
+  --good:#2F6B46;--warn:#8A5A12;--bad:#9B3524;
+  --term-bg:#1A1714;--term-fg:#EDE7DA;--term-dim:#8B8375;
+  --shadow:0 1px 2px rgba(27,25,23,.04),0 8px 24px -12px rgba(27,25,23,.16);
+  --shadow-lg:0 2px 4px rgba(27,25,23,.04),0 24px 56px -24px rgba(27,25,23,.28);
+  --r:14px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0F0E0C;--surface:#181613;--raise:#1F1C18;--sunken:#141210;
+  --text:#EDE8DF;--muted:#9A9186;--faint:#6E675D;--rule:#2A2621;
+  --ink:#8FB6D8;--accent:#E27A5C;--on-ink:#0F0E0C;
+  --good:#6FBF8E;--warn:#D6A354;--bad:#E08070;
+  --term-bg:#0A0908;--term-fg:#EDE7DA;--term-dim:#777064;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
+  --shadow-lg:0 2px 4px rgba(0,0,0,.4),0 24px 56px -24px rgba(0,0,0,.8);
+}}
+:root[data-theme="dark"]{
+  --paper:#0F0E0C;--surface:#181613;--raise:#1F1C18;--sunken:#141210;
+  --text:#EDE8DF;--muted:#9A9186;--faint:#6E675D;--rule:#2A2621;
+  --ink:#8FB6D8;--accent:#E27A5C;--on-ink:#0F0E0C;
+  --good:#6FBF8E;--warn:#D6A354;--bad:#E08070;
+  --term-bg:#0A0908;--term-fg:#EDE7DA;--term-dim:#777064;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
+  --shadow-lg:0 2px 4px rgba(0,0,0,.4),0 24px 56px -24px rgba(0,0,0,.8);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--text);
+  font-family:"Source Serif 4",Georgia,serif;font-size:18px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.wrap{max-width:68rem;margin:0 auto;padding:0 1.5rem}
+.narrow{max-width:40rem}
+.center{text-align:center;margin-left:auto;margin-right:auto}
+
+h1,h2,h3,h4,.dsp{font-family:"Bricolage Grotesque",-apple-system,BlinkMacSystemFont,Helvetica,sans-serif;
+  font-weight:700;text-wrap:balance;letter-spacing:-.028em;line-height:1.08;margin:0}
+h1{font-size:clamp(2.6rem,7vw,5rem)}
+h2{font-size:clamp(1.9rem,4vw,3rem);letter-spacing:-.03em}
+h3{font-size:1.2rem;letter-spacing:-.02em;margin-bottom:.4rem}
+p{margin:0 0 1.1rem}
+code,.mono{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:.88em}
+a{color:var(--ink);text-underline-offset:.18em}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+img{max-width:100%;height:auto;display:block}
+
+/* ---------- masthead ---------- */
+.mast{position:sticky;top:0;z-index:60;
+  background:color-mix(in srgb,var(--paper) 78%,transparent);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);
+  backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid transparent;transition:border-color .3s ease}
+.mast.stuck{border-bottom-color:var(--rule)}
+.mast .wrap{display:flex;align-items:center;gap:1rem;height:3.4rem}
+.brand{display:flex;align-items:center;gap:.55rem;text-decoration:none;color:var(--text);
+  font-family:"Bricolage Grotesque",sans-serif;font-weight:800;letter-spacing:-.035em;
+  font-size:1.02rem}
+.brand svg{flex:none}
+.mast nav{margin-left:auto;display:flex;gap:1.5rem;align-items:center}
+.mast nav a:not(.btn){font-size:.85rem;color:var(--muted);text-decoration:none;
+  font-family:"Bricolage Grotesque",sans-serif;font-weight:600;letter-spacing:-.01em;
+  transition:color .2s}
+.mast nav a:not(.btn):hover{color:var(--text)}
+@media(max-width:44rem){.mast nav a:not(.btn){display:none}}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;
+  font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:.92rem;
+  letter-spacing:-.01em;padding:.62rem 1.25rem;border-radius:999px;text-decoration:none;
+  background:var(--ink);color:var(--on-ink);border:0;cursor:pointer;white-space:nowrap;
+  transition:transform .18s cubic-bezier(.2,.8,.3,1),filter .18s,box-shadow .18s}
+.btn:hover{filter:brightness(1.08);transform:translateY(-1px);box-shadow:var(--shadow)}
+.btn:active{transform:translateY(0) scale(.985)}
+.btn.ghost{background:transparent;color:var(--ink);
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ink) 34%,transparent)}
+.btn.ghost:hover{background:color-mix(in srgb,var(--ink) 7%,transparent)}
+.btn.big{font-size:1.02rem;padding:.85rem 1.75rem}
+.btn.sm{font-size:.82rem;padding:.45rem .95rem}
+
+/* ---------- reveal ---------- */
+/* Reveal-on-scroll is an enhancement, never a gate. Without JS the .js class is
+   never set, so everything renders visible, a broken script must not hide content. */
+.js .rv{opacity:0;transform:translateY(14px);
+  transition:opacity .7s cubic-bezier(.2,.8,.3,1),transform .7s cubic-bezier(.2,.8,.3,1)}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js .rv{opacity:1;transform:none;transition:none}
+  *{animation:none!important;transition:none!important}
+}
+
+/* ---------- sections ---------- */
+section{padding:clamp(3.5rem,8vw,6.5rem) 0}
+.eyebrow{font-family:"JetBrains Mono",monospace;font-size:.72rem;text-transform:uppercase;
+  letter-spacing:.18em;color:var(--accent);margin:0 0 1.1rem}
+.sec-label{font-family:"JetBrains Mono",monospace;font-size:.72rem;text-transform:uppercase;
+  letter-spacing:.18em;color:var(--faint);margin:0 0 1.3rem}
+.lede{font-size:clamp(1.15rem,2.1vw,1.4rem);color:var(--muted);line-height:1.5;
+  max-width:38rem}
+
+/* ---------- terminal ---------- */
+.term{background:var(--term-bg);border-radius:var(--r);overflow:hidden;
+  box-shadow:var(--shadow-lg);margin:0}
+.term-bar{display:flex;align-items:center;gap:.42rem;padding:.65rem .95rem;
+  background:color-mix(in srgb,var(--term-fg) 6%,var(--term-bg));
+  border-bottom:1px solid color-mix(in srgb,var(--term-fg) 8%,transparent)}
+.term-bar i{width:.66rem;height:.66rem;border-radius:50%;background:#4A443C;display:block}
+.term-bar i:nth-child(1){background:#E06C5A}.term-bar i:nth-child(2){background:#D9A441}
+.term-bar i:nth-child(3){background:#5FA86F}
+.term-bar span{font-family:"JetBrains Mono",monospace;font-size:.72rem;
+  color:var(--term-dim);margin-left:.6rem}
+.term-bar .replay{margin-left:auto;font-size:.66rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--term-dim)}
+.term pre{margin:0;padding:1.1rem 1.25rem 1.5rem;overflow-x:auto;font-size:.8rem;
+  line-height:1.7;color:var(--term-fg);
+  font-family:"JetBrains Mono",monospace;min-height:var(--th,auto)}
+.term .p{color:var(--accent)}
+.term .c{color:var(--term-dim)}
+.term .ok{color:var(--good)}
+.term .no{color:var(--warn)}
+.term .hi{color:var(--ink);font-weight:700}
+.caret{display:inline-block;width:.55em;height:1.05em;background:var(--term-fg);
+  vertical-align:-.18em;animation:blink 1.05s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.term-actions{display:flex;gap:.6rem;align-items:center;margin-top:.85rem}
+.term-note{font-family:"JetBrains Mono",monospace;font-size:.72rem;color:var(--faint)}
+
+/* ---------- cards / grids ---------- */
+.grid{display:grid;gap:1.5rem}
+.g2{grid-template-columns:repeat(auto-fit,minmax(18rem,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))}
+.card{background:var(--surface);border-radius:var(--r);padding:1.5rem;
+  box-shadow:var(--shadow)}
+.card h3{margin-bottom:.5rem}
+.card p{color:var(--muted);font-size:.96rem;margin:0}
+.tag{font-family:"JetBrains Mono",monospace;font-size:.68rem;padding:.2rem .55rem;
+  border-radius:999px;background:var(--raise);color:var(--muted);white-space:nowrap}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem}
+
+/* ---------- shots ---------- */
+.shots{display:grid;gap:1.25rem;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));
+  align-items:start}
+.shot{background:var(--surface);border-radius:10px;overflow:hidden;box-shadow:var(--shadow);
+  transition:transform .3s cubic-bezier(.2,.8,.3,1),box-shadow .3s}
+.shot:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.shot img{width:100%}
+.shot figcaption{font-family:"JetBrains Mono",monospace;font-size:.7rem;color:var(--faint);
+  padding:.6rem .75rem;border-top:1px solid var(--rule)}
+.reels{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr))}
+.reels img{border-radius:10px;box-shadow:var(--shadow)}
+
+/* ---------- diagram ---------- */
+.diagram{background:var(--surface);border-radius:var(--r);padding:1.75rem 1.5rem;
+  box-shadow:var(--shadow);overflow-x:auto}
+.diagram svg{display:block;margin:0 auto;max-width:100%;height:auto}
+
+/* ---------- buy ---------- */
+.buybox{background:var(--surface);border-radius:var(--r);padding:clamp(1.6rem,4vw,2.5rem);
+  box-shadow:var(--shadow-lg)}
+.buy-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:.4rem 1rem;margin-bottom:.3rem}
+.amount{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;
+  font-size:clamp(2.6rem,6vw,3.4rem);letter-spacing:-.04em;line-height:1}
+.per{color:var(--muted);font-size:.95rem}
+.incl{list-style:none;padding:0;margin:1.4rem 0 1.8rem;display:grid;gap:.62rem}
+.incl li{padding-left:1.6rem;position:relative;font-size:.97rem;color:var(--muted)}
+.incl li::before{content:"";position:absolute;left:0;top:.52em;width:.62rem;height:.62rem;
+  border-radius:50%;background:color-mix(in srgb,var(--good) 28%,transparent);
+  box-shadow:inset 0 0 0 2px var(--good)}
+.buy-row{display:flex;flex-wrap:wrap;gap:.7rem}
+.buy-note{font-size:.87rem;color:var(--faint);margin:1.2rem 0 0}
+.pill-row{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1rem}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--rule);padding:3rem 0 4rem;color:var(--muted);font-size:.87rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-between}
+footer a{color:var(--muted)}
+footer nav{display:flex;gap:1.3rem;flex-wrap:wrap}
+
+.p-bookforge{--pink:#1F3A5F;--on-pink:#FFFFFF}
+.p-designforge{--pink:#B4381F;--on-pink:#FFFFFF}
+.p-painscout{--pink:#8A6A1F;--on-pink:#FFFFFF}
+.p-reelforge{--pink:#14514B;--on-pink:#FFFFFF}
+.p-shipkit{--pink:#2C5545;--on-pink:#FFFFFF}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) {}
+.p-bookforge{--pink:#8FB6D8;--on-pink:#0F0E0C}
+.p-designforge{--pink:#E27A5C;--on-pink:#0F0E0C}
+.p-painscout{--pink:#D2AC55;--on-pink:#0F0E0C}
+.p-reelforge{--pink:#63B8AC;--on-pink:#0F0E0C}
+.p-shipkit{--pink:#79B79A;--on-pink:#0F0E0C}
+}
+:root[data-theme="dark"] .p-bookforge{--pink:#8FB6D8;--on-pink:#0F0E0C}
+:root[data-theme="dark"] .p-designforge{--pink:#E27A5C;--on-pink:#0F0E0C}
+:root[data-theme="dark"] .p-painscout{--pink:#D2AC55;--on-pink:#0F0E0C}
+:root[data-theme="dark"] .p-reelforge{--pink:#63B8AC;--on-pink:#0F0E0C}
+:root[data-theme="dark"] .p-shipkit{--pink:#79B79A;--on-pink:#0F0E0C}
+
+/* hero */
+.phero{padding:clamp(3rem,7vw,5.5rem) 0 clamp(2rem,4vw,3rem)}
+.phero .kicker{display:inline-flex;align-items:center;gap:.5rem;
+  font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--pink,var(--ink));margin-bottom:1.2rem}
+.phero .kicker::before{content:"";width:.7rem;height:.7rem;border-radius:3px;
+  background:var(--pink,var(--ink))}
+.phero h1{font-size:clamp(2.3rem,5.6vw,4rem)}
+.phero .lede{margin-top:1.3rem}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center;margin-top:2rem}
+.hero-cta .btn{background:var(--pink,var(--ink));color:var(--on-pink,var(--on-ink))}
+.hero-cta .btn.ghost{background:transparent;color:var(--pink,var(--ink));
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--pink,var(--ink)) 34%,transparent)}
+.pricetag{font-family:"JetBrains Mono",monospace;font-size:.8rem;color:var(--faint)}
+.hero-grid{display:grid;gap:2.5rem;align-items:center}
+@media(min-width:56rem){.hero-grid{grid-template-columns:1fr 1fr}}
+
+.split{display:grid;gap:2.5rem;align-items:center}
+@media(min-width:56rem){.split{grid-template-columns:1.1fr .9fr}}
+.feat-list{display:grid;gap:1.75rem}
+.feat-list h3{color:var(--pink,var(--ink))}
+.feat-list p{color:var(--muted);font-size:1rem;margin:0}
+
+.note-card{background:var(--raise);border-radius:var(--r);padding:1.4rem 1.6rem}
+.note-card h3{font-size:1rem;margin-bottom:.4rem}
+.note-card p{margin:0;color:var(--muted);font-size:.95rem}
+
+/* index product rows */
+.prow{display:grid;gap:1.75rem;align-items:center;padding:clamp(2rem,4vw,3rem) 0;
+  border-top:1px solid var(--rule)}
+@media(min-width:56rem){.prow{grid-template-columns:1fr 1fr}
+  .prow.flip .pvis{order:-1}}
+.pname{display:inline-flex;align-items:center;gap:.55rem;
+  font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.05rem;
+  letter-spacing:-.03em;color:var(--pink,var(--ink));margin-bottom:.7rem}
+.pname::before{content:"";width:.65rem;height:.65rem;border-radius:3px;background:var(--pink,var(--ink))}
+.prow h3{font-size:clamp(1.4rem,2.6vw,1.9rem);letter-spacing:-.03em;margin-bottom:.7rem}
+.prow p{color:var(--muted);font-size:1rem}
+.prow-foot{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center;margin-top:1.2rem}
+.prow-foot .btn{background:var(--pink,var(--ink));color:var(--on-pink,var(--on-ink))}
+.pvis .term pre{font-size:.72rem;max-height:20rem}
+
+.bundle{margin-top:2.5rem;background:var(--raise);border-radius:var(--r);
+  padding:clamp(1.5rem,4vw,2.25rem);display:flex;flex-wrap:wrap;gap:1.25rem;
+  align-items:center;justify-content:space-between}
+.bundle p{margin:0;color:var(--muted)}
+.bundle b{color:var(--text)}
+
+.svc{display:grid;gap:1.75rem;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr))}
+.svc div{border-top:2px solid var(--ink);padding-top:.85rem}
+.svc p{color:var(--muted);font-size:.95rem;margin:0}
+.pay{display:grid;gap:1.25rem;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr))}
+.callout{border-left:3px solid var(--accent);padding:.15rem 0 .15rem 1.25rem;
+  color:var(--muted)}
+.hero-meta{display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;margin-top:2.2rem;
+  font-family:"JetBrains Mono",monospace;font-size:.78rem;color:var(--muted)}
+.hero-meta b{color:var(--text);font-weight:400}
+.privacy-band{background:var(--raise)}
+.opt{background:var(--surface);border-radius:var(--r);padding:1.5rem;box-shadow:var(--shadow)}
+.opt-tag{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:.66rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--pink,var(--ink));
+  margin-bottom:.6rem}
+.opt h3{margin-bottom:.5rem}
+.opt p{color:var(--muted);font-size:.96rem;margin:0 0 .7rem}
+.opt-spec{font-family:"JetBrains Mono",monospace;font-size:.74rem;color:var(--faint);
+  margin:0!important;padding-top:.7rem;border-top:1px solid var(--rule)}
+.factbox{margin-top:1.5rem;background:var(--surface);border-radius:var(--r);
+  box-shadow:var(--shadow);overflow:hidden}
+.factbox>div{display:grid;gap:.2rem 1.5rem;padding:1.05rem 1.4rem;
+  border-bottom:1px solid var(--rule)}
+@media(min-width:44rem){.factbox>div{grid-template-columns:14rem 1fr;align-items:baseline}}
+.factbox>div:last-child{border-bottom:0}
+.fk{font-family:"JetBrains Mono",monospace;font-size:.72rem;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--faint)}
+.fv{color:var(--text);font-size:.97rem}
+</style>
+<header class="mast">
+  <div class="wrap">
+    <a class="brand" href="./index.html">
+      <svg width="19" height="19" viewBox="0 0 20 20" aria-hidden="true">
+        <rect x="1.2" y="1.2" width="17.6" height="17.6" rx="4" fill="none"
+              stroke="currentColor" stroke-width="1.7"/>
+        <path d="M5 13.6 10 5.4l5 8.2" fill="none" stroke="currentColor"
+              stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+      </svg>Island Forge</a>
+    <nav>
+      <a href="./index.html#products">Products</a>
+      <a href="./index.html#privacy">Privacy</a>
+      <a href="./index.html#services">Services</a>
+      <a href="./index.html#contact">Contact</a>
+      <a class="btn sm" href="./index.html#products">Browse tools</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <div class="wrap phero" style="padding-top:clamp(4rem,10vw,8rem)">
+    <p class="eyebrow">Independent software · Sri Lanka</p>
+    <h1>Small, sharp tools<br>for people who ship alone.</h1>
+    <p class="lede" style="margin-top:1.6rem">Five command-line tools that each do one job
+      properly and get out of the way. They run on models on your own machine, cost nothing
+      per use, and degrade instead of failing when something is missing.</p>
+    <div class="hero-cta">
+      <a class="btn big" href="#products">Browse the tools</a>
+      <a class="btn ghost big" href="#privacy">How your data is handled</a>
+    </div>
+    <div class="hero-meta">
+      <span><b>$29 to $79</b> per tool</span>
+      <span><b>One payment</b>, no subscription</span>
+      <span><b>Full source</b> included</span>
+      <span><b>Runs on your machine</b>, or your endpoint</span>
+    </div>
+  </div>
+
+  <section id="products" style="padding-top:clamp(2rem,4vw,3rem)">
+    <div class="wrap">
+      <p class="sec-label">The tools</p>
+      <h2 class="narrow">Built for one person doing everything</h2>
+      <p class="lede" style="margin:1rem 0 1rem">Each of these came out of running an
+        automated publishing operation single-handed. They are the parts worth keeping, the ones that stopped things failing quietly at 3am.</p>
+    <article class="prow p-bookforge">
+      <div class="rv">
+        <span class="pname">BookForge</span>
+        <h3>A brief goes in. A finished book comes out.</h3>
+        <p>Designed PDF interior, valid EPUB3, cover art, a full paperback wrap and the listing copy. Plus a quality gate that refuses to ship a placeholder cover or a truncated manuscript.</p>
+        <div class="tags" style="margin-top:1rem">
+          <span class="tag">PDF + EPUB3</span><span class="tag">Cover art</span><span class="tag">Quality gate</span></div>
+        <div class="prow-foot">
+          <a class="btn" href="./bookforge.html">See BookForge, $79</a>
+          <span class="pricetag">one payment</span>
+        </div>
+      </div>
+      <div class="pvis rv"><div class="term" id="ix-bookforge" data-frames='[{"t": "$ ", "cls": "p", "d": 0}, {"t": "bookforge guide brief.json<br>", "cls": null, "d": 26}, {"t": "cover art: http://127.0.0.1:7860<br>", "cls": "c", "d": 10}, {"t": "interior.pdf     9 pages, designed<br>", "cls": null, "d": 10}, {"t": "book.epub        EPUB3, validated<br>", "cls": null, "d": 10}, {"t": "cover-wrap.pdf   spine 0.213in<br>", "cls": null, "d": 10}, {"t": "<br>DONE: The Off Switch<br>", "cls": "hi", "d": 10}, {"t": "  out/2026-08-30-the-off-switch<br><br>", "cls": "c", "d": 10}, {"t": "$ ", "cls": "p", "d": 300}, {"t": "bookforge qc 2026-08-30-the-off-switch<br>", "cls": null, "d": 26}, {"t": "  [PASS] ", "cls": "ok", "d": 8}, {"t": "print/interior.pdf         ok<br>", "cls": null, "d": 8}]'>
+  <div class="term-bar"><i></i><i></i><i></i><span>bookforge guide brief.json</span>
+    <span class="replay">recorded run</span></div>
+  <pre><span class="p">$ </span>bookforge guide brief.json
+<span class="c">cover art: http://127.0.0.1:7860
+</span>interior.pdf     9 pages, designed
+book.epub        EPUB3, validated
+cover-wrap.pdf   spine 0.213in
+<span class="hi">
+DONE: The Off Switch
+</span><span class="c">  out/2026-08-30-the-off-switch
+
+</span><span class="p">$ </span>bookforge qc 2026-08-30-the-off-switch
+<span class="ok">  [PASS] </span>print/interior.pdf         ok
+</pre>
+</div>
+<div class="term-actions"></div></div>
+    </article>
+    <article class="prow p-designforge flip">
+      <div class="rv">
+        <span class="pname">DesignForge</span>
+        <h3>It remembers every design it already made.</h3>
+        <p>A print-on-demand factory: trend research, coherent collections, embedding-based duplicate filtering, print-ready transparent PNGs and listing copy for every file.</p>
+        <div class="tags" style="margin-top:1rem">
+          <span class="tag">5000×5500 PNG</span><span class="tag">Dedup memory</span><span class="tag">16 styles</span></div>
+        <div class="prow-foot">
+          <a class="btn" href="./designforge.html">See DesignForge, $59</a>
+          <span class="pricetag">one payment</span>
+        </div>
+      </div>
+      <div class="pvis rv"><div class="term" id="ix-designforge" data-frames='[{"t": "$ ", "cls": "p", "d": 0}, {"t": "designforge batch -n 12<br>", "cls": null, "d": 26}, {"t": "phase 1: discovering trends...<br>", "cls": "c", "d": 14}, {"t": "  trend: Botanical Gothic         sale=8 unique=8 comp=4<br>", "cls": null, "d": 10}, {"t": "  trend: Retro Futurist Machines  sale=7 unique=8 comp=3<br>", "cls": null, "d": 10}, {"t": "  trend: Dreamcore Liminal        sale=7 unique=7 comp=5<br>", "cls": null, "d": 10}, {"t": "phase 2: generating collections...<br>", "cls": "c", "d": 14}, {"t": "  skip ", "cls": "no", "d": 10}, {"t": "&#x27;moth under glass&#x27;, 0.91 similar to 12 Jul design<br>", "cls": null, "d": 10}, {"t": "  skip ", "cls": "no", "d": 10}, {"t": "&#x27;brass compass&#x27;, 0.88 similar to 03 Aug design<br>", "cls": null, "d": 10}, {"t": "  ok ", "cls": "ok", "d": 10}]'>
+  <div class="term-bar"><i></i><i></i><i></i><span>designforge batch -n 12</span>
+    <span class="replay">recorded run</span></div>
+  <pre><span class="p">$ </span>designforge batch -n 12
+<span class="c">phase 1: discovering trends...
+</span>  trend: Botanical Gothic         sale=8 unique=8 comp=4
+  trend: Retro Futurist Machines  sale=7 unique=8 comp=3
+  trend: Dreamcore Liminal        sale=7 unique=7 comp=5
+<span class="c">phase 2: generating collections...
+</span><span class="no">  skip </span>&#x27;moth under glass&#x27;, 0.91 similar to 12 Jul design
+<span class="no">  skip </span>&#x27;brass compass&#x27;, 0.88 similar to 03 Aug design
+<span class="ok">  ok </span></pre>
+</div>
+<div class="term-actions"></div></div>
+    </article>
+    <article class="prow p-painscout">
+      <div class="rv">
+        <span class="pname">PainScout</span>
+        <h3>Build for the problem that keeps coming back.</h3>
+        <p>Reads what people publicly complain about, scores each recurring friction against your audience, and tracks how those scores move week over week.</p>
+        <div class="tags" style="margin-top:1rem">
+          <span class="tag">Zero dependencies</span><span class="tag">No API keys</span><span class="tag">Trend tracking</span></div>
+        <div class="prow-foot">
+          <a class="btn" href="./painscout.html">See PainScout, $39</a>
+          <span class="pricetag">one payment</span>
+        </div>
+      </div>
+      <div class="pvis rv"><div class="term" id="ix-painscout" data-frames='[{"t": "$ ", "cls": "p", "d": 0}, {"t": "painscout run<br>", "cls": null, "d": 26}, {"t": "ok   Finance          12 items  reddit.com/r/personalfinance<br>", "cls": "c", "d": 8}, {"t": "ok   Health           12 items  reddit.com/r/insomnia<br>", "cls": "c", "d": 8}, {"t": "ok   Tech             11 items  hnrss.org/newest<br>", "cls": "c", "d": 8}, {"t": "68 snippets from 6 feeds<br><br>", "cls": null, "d": 12}, {"t": "scored 7 frictions from 68 snippets<br>", "cls": "hi", "d": 12}, {"t": "  3 new, 4 seen before<br><br>", "cls": null, "d": 10}, {"t": "PAIN MATRIX, 7 entries<br><br>", "cls": "c", "d": 10}, {"t": "   9 \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588     ", "cls": "ok", "d": 10}, {"t": "[Finance] paycheck to paycheck, can&#x27;t see where it goes<br>", "cls": null, "d": 10}, {"t": "       seen 3x, 2026-07-04 \u2192 2026-08-30<br>", "cls": "c", "d": 8}]'>
+  <div class="term-bar"><i></i><i></i><i></i><span>painscout run</span>
+    <span class="replay">recorded run</span></div>
+  <pre><span class="p">$ </span>painscout run
+<span class="c">ok   Finance          12 items  reddit.com/r/personalfinance
+</span><span class="c">ok   Health           12 items  reddit.com/r/insomnia
+</span><span class="c">ok   Tech             11 items  hnrss.org/newest
+</span>68 snippets from 6 feeds
+
+<span class="hi">scored 7 frictions from 68 snippets
+</span>  3 new, 4 seen before
+
+<span class="c">PAIN MATRIX, 7 entries
+
+</span><span class="ok">   9 █████████     </span>[Finance] paycheck to paycheck, can&#x27;t see where it goes
+<span class="c">       seen 3x, 2026-07-04 → 2026-08-30
+</span></pre>
+</div>
+<div class="term-actions"></div></div>
+    </article>
+    <article class="prow p-reelforge flip">
+      <div class="rv">
+        <span class="pname">ReelForge</span>
+        <h3>A failure at step four shouldn't cost you steps one to three.</h3>
+        <p>Captioned 1080×1920 promo videos with narration and sound design, plus a config-driven pipeline orchestrator that survives every way a long job breaks.</p>
+        <div class="tags" style="margin-top:1rem">
+          <span class="tag">1080×1920</span><span class="tag">ffmpeg only</span><span class="tag">Karaoke captions</span></div>
+        <div class="prow-foot">
+          <a class="btn" href="./reelforge.html">See ReelForge, $69</a>
+          <span class="pricetag">one payment</span>
+        </div>
+      </div>
+      <div class="pvis rv"><div class="term" id="ix-reelforge" data-frames='[{"t": "$ ", "cls": "p", "d": 0}, {"t": "reelforge reel out/the-off-switch<br>", "cls": null, "d": 26}, {"t": "[REEL] 7 beats, ~30.0s<br>", "cls": "c", "d": 12}, {"t": "  hook clip: static opening frame<br>", "cls": "c", "d": 8}, {"t": "  voiceover -&gt; voice/vo.mp3<br>", "cls": "c", "d": 8}, {"t": "[REEL] OK", "cls": "ok", "d": 10}, {"t": " -&gt; reel.mp4  30.03s 1080x1920 xfade<br><br>", "cls": null, "d": 12}, {"t": "$ ", "cls": "p", "d": 300}, {"t": "reelforge pipeline status<br>", "cls": null, "d": 26}, {"t": "PIPELINE &#x27;promo&#x27;  brief \u2192 voice \u2192 reel \u2192 publish \u2192 post<br>", "cls": "c", "d": 12}, {"t": "  [", "cls": "", "d": 8}, {"t": "***", "cls": "ok", "d": 8}]'>
+  <div class="term-bar"><i></i><i></i><i></i><span>reelforge pipeline status</span>
+    <span class="replay">recorded run</span></div>
+  <pre><span class="p">$ </span>reelforge reel out/the-off-switch
+<span class="c">[REEL] 7 beats, ~30.0s
+</span><span class="c">  hook clip: static opening frame
+</span><span class="c">  voiceover -&gt; voice/vo.mp3
+</span><span class="ok">[REEL] OK</span> -&gt; reel.mp4  30.03s 1080x1920 xfade
+
+<span class="p">$ </span>reelforge pipeline status
+<span class="c">PIPELINE &#x27;promo&#x27;  brief → voice → reel → publish → post
+</span>  [<span class="ok">***</span></pre>
+</div>
+<div class="term-actions"></div></div>
+    </article>
+    <article class="prow p-shipkit">
+      <div class="rv">
+        <span class="pname">ShipKit</span>
+        <h3>Run it twice. It won't make two listings.</h3>
+        <p>Publish a folder of files to Gumroad from the command line and pull real sales figures back. Official API, no browser automation, not a single dependency.</p>
+        <div class="tags" style="margin-top:1rem">
+          <span class="tag">Idempotent</span><span class="tag">Official API</span><span class="tag">Sales history</span></div>
+        <div class="prow-foot">
+          <a class="btn" href="./shipkit.html">See ShipKit, $29</a>
+          <span class="pricetag">one payment</span>
+        </div>
+      </div>
+      <div class="pvis rv"><div class="term" id="ix-shipkit" data-frames='[{"t": "$ ", "cls": "p", "d": 0}, {"t": "shipkit publish my-product<br>", "cls": null, "d": 26}, {"t": "The Off Switch<br>", "cls": "hi", "d": 12}, {"t": "  price      19.00 USD<br>", "cls": "c", "d": 8}, {"t": "  files      guide.pdf, worksheet.pdf<br>", "cls": "c", "d": 8}, {"t": "  visibility published<br>", "cls": "c", "d": 8}, {"t": "  updating existing product 8Kd2p<br>", "cls": null, "d": 10}, {"t": "  = guide.pdf (already uploaded)<br>", "cls": "c", "d": 10}, {"t": "  + worksheet.pdf<br>", "cls": "ok", "d": 10}, {"t": "<br>DONE", "cls": "ok", "d": 10}, {"t": "  https://you.gumroad.com/l/offswitch<br>", "cls": null, "d": 12}, {"t": "      record kept in .shipkit.json, re-running is safe<br><br>", "cls": "c", "d": 10}]'>
+  <div class="term-bar"><i></i><i></i><i></i><span>shipkit publish my-product</span>
+    <span class="replay">recorded run</span></div>
+  <pre><span class="p">$ </span>shipkit publish my-product
+<span class="hi">The Off Switch
+</span><span class="c">  price      19.00 USD
+</span><span class="c">  files      guide.pdf, worksheet.pdf
+</span><span class="c">  visibility published
+</span>  updating existing product 8Kd2p
+<span class="c">  = guide.pdf (already uploaded)
+</span><span class="ok">  + worksheet.pdf
+</span><span class="ok">
+DONE</span>  https://you.gumroad.com/l/offswitch
+<span class="c">      record kept in .shipkit.json, re-running is safe
+
+</span></pre>
+</div>
+<div class="term-actions"></div></div>
+    </article>
+      <div class="bundle rv">
+        <p><b>All five, $179.</b> Everything above, one payment, $275 bought separately.</p>
+        <a class="btn" href="https://kalharasupul.gumroad.com/l/island-forge-bundle">Buy the bundle</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="privacy" class="privacy-band"><div class="wrap">
+    <p class="sec-label">Your machine, your data</p>
+    <h2 class="narrow">Nothing here runs on my servers, because there are none.</h2>
+    <p class="lede" style="margin:1rem 0 2rem">Every tool talks only to endpoints you
+      configure yourself. No account, no telemetry, no licence check that phones home.
+      You get two ways to run them, and you pick per tool.</p>
+    <div class="grid g2 rv">
+      <div class="opt"><span class="opt-tag">Option A</span>
+        <h3>On your own machine</h3>
+        <p>Download an open model once, then run everything locally. Your briefs,
+          manuscripts, designs and output never leave the computer. After the download
+          there is no per-run cost and, for most of these tools, no network call at all.</p>
+        <p>On a Mac that means Ollama for text, and for images either Draw Things
+          (one settings toggle, then all terminal) or a pure command-line generator
+          like <code>draw-things-cli</code> or <code>mflux</code>. Each tool ships a
+          setup guide naming the exact model to download and the settings to change.</p>
+        <p class="opt-spec">Ollama · qwen2.5:14b ≈ 9 GB · nomic-embed-text ≈ 274 MB ·
+          FLUX.1 Schnell ≈ 7 GB or SDXL 8-bit ≈ 3.5 GB · 16 GB RAM comfortable</p></div>
+      <div class="opt"><span class="opt-tag">Option B</span>
+        <h3>An endpoint you already trust</h3>
+        <p>Do not want a 9 GB download, or already run a gateway? Set an API base and key
+          and the tool switches to the OpenAI-compatible protocol. Works with OpenAI,
+          Azure OpenAI, Together, Groq, OpenRouter, a self-hosted vLLM, or your own
+          LiteLLM router.</p>
+        <p class="opt-spec">Your prompts go to the endpoint you named, and nowhere else</p></div>
+    </div>
+    <div class="factbox rv" style="margin-top:1.5rem">
+      <div><span class="fk">BookForge</span><span class="fv">Fully offline once models are
+        on disk. Nothing leaves the machine.</span></div>
+      <div><span class="fk">DesignForge</span><span class="fv">Fully offline once models are
+        on disk. The dedup memory is a local file.</span></div>
+      <div><span class="fk">PainScout</span><span class="fv">Fetches the public RSS feeds you
+        list, because reading them is the job. Scoring can stay entirely local.</span></div>
+      <div><span class="fk">ReelForge</span><span class="fv">Offline if you skip the
+        voiceover. Finished videos are never uploaded anywhere.</span></div>
+      <div><span class="fk">ShipKit</span><span class="fv">Talks to Gumroad by design, using
+        a token you created. No model involved at all.</span></div>
+    </div>
+    <p class="callout" style="margin-top:2rem">Every tool prints where its model actually
+      lives when you run <code>doctor</code>, so you are never guessing which of the two
+      you are on.</p>
+  </div></section>
+
+  <section id="services"><div class="wrap">
+    <p class="sec-label">Consulting</p>
+    <h2 class="narrow">Independent engagements, a few at a time</h2>
+    <p class="lede" style="margin:1rem 0 2rem">Short, scoped pieces of work on getting AI
+      systems into production and keeping them there. Availability is limited and outside
+      normal business hours. If that does not suit your timeline, say so early and I will
+      tell you honestly rather than take the work.</p>
+    <div class="svc rv">
+      <div><h3>LLM gateway and routing</h3><p>One gateway in front of many model providers, LiteLLM or similar, so applications stop hard-coding a vendor. Routing, fallbacks, cost attribution, per-team limits.</p></div><div><h3>Model serving on Kubernetes</h3><p>KServe and Kubeflow setups, autoscaling that reacts to real traffic, GPU scheduling, and moving off notebooks-in-production.</p></div><div><h3>Self-hosting open models</h3><p>Running open-weight models on your own hardware or cloud, sized honestly, including the cases where a hosted API is genuinely the cheaper answer.</p></div><div><h3>Pipeline automation</h3><p>Turning manual multi-step work into a scheduled pipeline that fails visibly instead of silently. Orchestration, quality gates, and the alerting around them.</p></div>
+    </div>
+    <p class="callout" style="margin-top:2rem">Fixed scope and a fixed price, agreed before
+      anything starts. No retainers, and no engagements that compete with work I already do
+      elsewhere.</p>
+    <p style="margin-top:1.5rem">
+      <a class="btn ghost" href="mailto:supul9229kalhara@gmail.com?subject=Consulting%20enquiry">Describe your problem</a></p>
+  </div></section>
+
+  <section id="pay"><div class="wrap">
+    <p class="sec-label">Paying</p>
+    <h2 class="narrow" style="margin-bottom:2rem">Card or PayPal, at checkout</h2>
+    <div class="pay rv">
+      <div class="card"><h3>Card</h3><p>Checkout opens on the page, no redirect. Your
+        licence key and download arrive by email immediately.</p></div>
+      <div class="card"><h3>PayPal</h3><p>Choose PayPal at the same checkout and pay from
+        your balance or a linked card. Delivery is identical.</p></div>
+      <div class="card"><h3>Bank transfer</h3><p>For team licences and consulting.
+        <a href="mailto:supul9229kalhara@gmail.com?subject=Invoice%20request">Request an invoice</a> and I
+        will issue one.</p></div>
+      <div class="card"><h3>Team licences</h3><p>Five seats for three times the single
+        price. <a href="mailto:supul9229kalhara@gmail.com?subject=Team%20licence">Get in touch</a>, larger
+        teams by arrangement.</p></div>
+    </div>
+    <p class="callout" style="margin-top:2rem">Paying Island Forge by PayPal directly is
+      not possible yet, Sri Lanka can send PayPal payments but not receive them, and
+      inward remittances have no launch date. Paying by PayPal <em>through the checkout</em>
+      works today, and direct PayPal will be added as soon as the country supports it.</p>
+  </div></section>
+
+  <section id="about"><div class="wrap narrow">
+    <p class="sec-label">Who makes these</p>
+    <h2>One engineer, working in the open</h2>
+    <p>Island Forge is a one-person operation. I build and maintain data and machine
+      learning systems. Model serving, orchestration, CI/CD, the unglamorous parts that
+      decide whether a model is useful or merely impressive.</p>
+    <p>These tools exist because I needed them. The quality gate in BookForge is there
+      because a run of books shipped with placeholder covers. The dedup memory in
+      DesignForge is there because a catalogue filled up with near-identical work. Every
+      awkward-looking guard rail marks something that already went wrong once.</p>
+    <p style="color:var(--muted);font-size:.95rem">Day to day: Python, Go and C#;
+      Kubernetes, Helm, Terraform, Docker; KServe, Kubeflow, Airflow, Dagster, Tekton and
+      ArgoCD; PyTorch and the usual model-serving stack; Postgres and MongoDB; React.</p>
+  </div></section>
+
+  <section id="contact"><div class="wrap narrow">
+    <p class="sec-label">Contact</p>
+    <h2>Ask before you buy</h2>
+    <p>Sales are final, so ask first. Describe your case and I will tell you honestly
+      whether a tool helps. Including when the answer is that it will not.</p>
+    <p style="margin-top:1.5rem"><a class="btn big" href="mailto:supul9229kalhara@gmail.com">supul9229kalhara@gmail.com</a></p>
+    <p style="color:var(--muted);font-size:.93rem;margin-top:1.5rem">Support is by email,
+      usually within two working days. Include the output of the tool's
+      <code>doctor</code> command. It answers most setup questions on its own.</p>
+  </div></section>
+</main>
+<footer>
+  <div class="wrap">
+    <span>Island Forge. Small, sharp tools for people who ship alone.</span>
+    <nav>
+      <a href="./terms.html">Terms</a>
+      <a href="./sales-policy.html">Sales policy</a>
+      <a href="./privacy.html">Privacy</a>
+      <a href="mailto:supul9229kalhara@gmail.com">Email</a>
+    </nav>
+  </div>
+</footer>
+<script>
+document.documentElement.classList.add('js');
+// Safety net: if anything below throws, reveal everything after 2s rather than
+// leaving the page blank.
+setTimeout(()=>document.querySelectorAll('.rv:not(.in)').forEach(e=>e.classList.add('in')),2000);
+
+// sticky masthead hairline
+const mast=document.querySelector('.mast');
+if(mast){addEventListener('scroll',()=>mast.classList.toggle('stuck',scrollY>8),{passive:true});}
+
+// scroll reveal
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){
+  e.target.classList.add('in');io.unobserve(e.target);}})},{rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%4*60)+'ms';io.observe(el);});
+
+// terminal replay, types out a recorded run
+function playTerm(root){
+  const pre=root.querySelector('pre'); const frames=JSON.parse(root.dataset.frames);
+  const btn=root.parentElement.querySelector('[data-replay]');
+  if(root.dataset.playing==='1')return; root.dataset.playing='1';
+  if(btn)btn.disabled=true;
+  pre.style.setProperty('--th',pre.offsetHeight+'px');
+  pre.innerHTML=''; let i=0;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  (function step(){
+    if(i>=frames.length){pre.insertAdjacentHTML('beforeend','<span class="caret"></span>');
+      root.dataset.playing='0'; if(btn)btn.disabled=false; return;}
+    const f=frames[i++];
+    pre.insertAdjacentHTML('beforeend', f.cls?`<span class="${f.cls}">${f.t}</span>`:f.t);
+    pre.scrollTop=pre.scrollHeight;
+    setTimeout(step, reduce?0:(f.d||18));
+  })();
+}
+document.querySelectorAll('.term[data-frames]').forEach(t=>{
+  const h=t.querySelector('pre').offsetHeight; t.querySelector('pre').style.setProperty('--th',h+'px');
+  const o=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){playTerm(t);o.unobserve(t);}})},
+    {threshold:.35}); o.observe(t);
+});
+document.querySelectorAll('[data-replay]').forEach(b=>{
+  b.addEventListener('click',()=>playTerm(document.getElementById(b.dataset.replay)));
+});
+</script>
